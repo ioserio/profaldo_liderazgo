@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portafolio Semanal | RIKFLEX</title>
+<meta name="description" content="Portada de proyectos por semana" />
+<style>
+:root{
+  --ink:#1e293b; --ink2:#475569; --bg:#f1f5f9; --panel:#ffffffd9; --accent:#0ea5e9; --accent2:#6366f1; --radius:18px;
+  --grid-max:1200px; --gradient:linear-gradient(135deg,#38bdf8 0%, #6366f1 45%, #34d399 100%);
+}
+body.theme-dark{
+  --ink:#e2e8f0; --ink2:#94a3b8; --bg:#0f172a; --panel:#1e293bd9; background:radial-gradient(circle at 18% 20%,#0f3a52,transparent 60%),radial-gradient(circle at 82% 30%,#312e81,transparent 55%),linear-gradient(130deg,#0f172a,#1e293b);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Segoe UI', system-ui, Arial, sans-serif; background:radial-gradient(circle at 18% 20%,#e0f2fe,transparent 60%),radial-gradient(circle at 82% 30%,#e9d5ff,transparent 55%),linear-gradient(130deg,#f1f5f9,#e2e8f0); min-height:100vh; color:var(--ink); display:flex; flex-direction:column;
+}
+header{
+  position:sticky; top:0; padding:14px 22px 10px; display:flex; align-items:center; gap:20px; z-index:50; backdrop-filter:blur(10px) saturate(140%);
+  background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.55)); border-bottom:1px solid rgba(148,163,184,.3);
+}
+body.theme-dark header{ background:linear-gradient(180deg,rgba(30,41,59,.72),rgba(30,41,59,.5)); border-color:rgba(148,163,184,.25); }
+.logo{font-weight:800; font-size:1.25rem; letter-spacing:.5px; background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent; position:relative;}
+.logo::after{content:""; position:absolute; left:0; bottom:-4px; width:100%; height:3px; border-radius:2px; background:var(--gradient); opacity:.55;}
+.header-actions{ margin-left:auto; display:flex; align-items:center; gap:14px; }
+.btn-ghost{ appearance:none; border:1px solid rgba(148,163,184,.35); background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.65)); color:var(--ink); font-weight:600; padding:8px 14px; border-radius:10px; cursor:pointer; font-size:.9rem; display:inline-flex; align-items:center; gap:6px; transition:border-color .2s, box-shadow .2s, transform .18s; }
+.btn-ghost:hover{ border-color:rgba(148,163,184,.6); box-shadow:0 4px 14px rgba(15,23,42,.12); }
+.btn-ghost:active{ transform:translateY(1px); }
+body.theme-dark .btn-ghost{ background:linear-gradient(180deg,rgba(30,41,59,.85),rgba(30,41,59,.6)); border-color:rgba(148,163,184,.4); color:var(--ink); }
+body.theme-dark .btn-ghost:hover{ border-color:rgba(148,163,184,.65); }
+/* Toggle estado */
+.btn-ghost.on{ outline:2px solid rgba(56,189,248,.5); }
+main{width:100%; flex:1; display:flex; flex-direction:column; align-items:center; padding:40px 18px 60px;}
+.hero{max-width:860px; text-align:center; margin:0 auto 44px;}
+.hero h1{font-size:clamp(1.9rem,4.7vw,3rem); line-height:1.12; background:var(--gradient); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:14px; font-weight:800;}
+.hero p{font-size:1.05rem; color:var(--ink2); line-height:1.55;}
+.grid{width:100%; max-width:var(--grid-max); display:grid; gap:22px; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+.card{position:relative; list-style:none; border-radius:var(--radius); padding:18px 18px 16px; background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.72)); border:1px solid rgba(148,163,184,.35); box-shadow:0 8px 24px -6px rgba(15,23,42,.18),0 2px 4px rgba(15,23,42,.08); display:flex; flex-direction:column; gap:12px; overflow:hidden; backdrop-filter:blur(8px);}
+.card::before{content:""; position:absolute; inset:0; background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.6),transparent 60%); opacity:.6; pointer-events:none;}
+.card.available{cursor:pointer;}
+.card h3{font-size:1.1rem; margin:0; font-weight:700; letter-spacing:.3px;}
+.card p{font-size:.78rem; line-height:1.3; color:var(--ink2); margin:0;}
+.badge{align-self:flex-start; font-size:.65rem; font-weight:700; letter-spacing:.5px; padding:4px 8px; border-radius:6px; background:#e2e8f0; color:#334155; text-transform:uppercase;}
+.card.available .badge{background:#dbeafe; color:#1e3a8a;}
+.card.locked{opacity:.55;}
+.card.locked .badge{background:#e2e8f0; color:#64748b;}
+.card a{position:absolute; inset:0; text-decoration:none; color:inherit;}
+.card:hover.card.available{transform:translateY(-4px); box-shadow:0 14px 32px -10px rgba(15,23,42,.35),0 4px 10px rgba(15,23,42,.15);} 
+.card:hover.card.available h3{color:#0f172a;}
+footer{margin-top:auto; text-align:center; padding:28px 12px 22px; font-size:.75rem; color:var(--ink2);} 
+.progress-weeks{margin-top:8px; font-size:.7rem; letter-spacing:.5px; color:var(--ink2);} 
+/* Estado actual */
+.current{outline:2px solid #38bdf8; outline-offset:2px;}
+.current .badge{background:#38bdf8; color:#fff;}
+/* Responsive fino */
+@media (max-width:600px){ .hero{margin-bottom:32px;} .grid{gap:16px;} }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">RIKFLEX</div>
+  <div class="header-actions">
+    <button id="themeToggle" class="btn-ghost" aria-pressed="false" title="Cambiar tema">🌗 <span class="txt" style="font-weight:500;opacity:.8;">Tema</span></button>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <h1>Portafolio Semanal de Proyectos</h1>
+    <p>Explora el avance semana a semana. Las semanas disponibles incluyen acceso inmediato. Las próximas semanas aparecerán bloqueadas hasta que agregues su contenido. Empieza ahora revisando la Semana 1.</p>
+  </section>
+  <section id="semanas" class="weeks">
+    <ul class="grid" id="weeksGrid" aria-label="Listado de semanas">
+      <!-- Cards generadas por JS -->
+    </ul>
+    <div class="progress-weeks" id="progressInfo" aria-live="polite"></div>
+  </section>
+</main>
+<footer>
+  &copy; <span id="year"></span> RIKFLEX • Portafolio Semanal
+</footer>
+<script>
+(function(){
+  const weeksData = [
+    { num:1, title:'Introducción al Liderazgo', file:'cuestionario_liderazgo.html', desc:'Cuestionario interactivo sobre liderazgo y trabajo en equipo.', available:true, current:true },
+    { num:2, title:'Semana 2', file:'semana2.html', desc:'Contenido pendiente.', available:false },
+    { num:3, title:'Semana 3', file:'semana3.html', desc:'Contenido pendiente.', available:false },
+    { num:4, title:'Semana 4', file:'semana4.html', desc:'Contenido pendiente.', available:false },
+    { num:5, title:'Semana 5', file:'semana5.html', desc:'Contenido pendiente.', available:false },
+    { num:6, title:'Semana 6', file:'semana6.html', desc:'Contenido pendiente.', available:false },
+    { num:7, title:'Semana 7', file:'semana7.html', desc:'Contenido pendiente.', available:false },
+    { num:8, title:'Semana 8', file:'semana8.html', desc:'Contenido pendiente.', available:false },
+    { num:9, title:'Semana 9', file:'semana9.html', desc:'Contenido pendiente.', available:false },
+    { num:10, title:'Semana 10', file:'semana10.html', desc:'Contenido pendiente.', available:false },
+    { num:11, title:'Semana 11', file:'semana11.html', desc:'Contenido pendiente.', available:false },
+    { num:12, title:'Semana 12', file:'semana12.html', desc:'Contenido pendiente.', available:false }
+  ];
+  const grid = document.getElementById('weeksGrid');
+  const progressInfo = document.getElementById('progressInfo');
+  const yearEl = document.getElementById('year'); if(yearEl) yearEl.textContent = new Date().getFullYear();
+  const frag = document.createDocumentFragment();
+  let availableCount = 0;
+  weeksData.forEach(w => {
+    if(w.available) availableCount++;
+    const li = document.createElement('li');
+    li.className = 'card ' + (w.available ? 'available' : 'locked') + (w.current ? ' current' : '');
+    li.innerHTML = `
+      <span class="badge">${w.available ? (w.current ? 'Actual' : 'Disponible') : 'Próxima'}</span>
+      <h3>Semana ${w.num} · ${w.title}</h3>
+      <p>${w.desc}</p>
+      ${w.available ? `<a href="${w.file}" aria-label="Abrir Semana ${w.num}"></a>` : ''}
+    `;
+    frag.appendChild(li);
+  });
+  grid.appendChild(frag);
+  progressInfo.textContent = `${availableCount} / ${weeksData.length} semanas disponibles`;
+  // Theme toggle similar to cuestionario
+  const THEME_KEY = 'ui_theme';
+  const tBtn = document.getElementById('themeToggle');
+  try{
+    const saved = localStorage.getItem(THEME_KEY);
+    if(saved==='dark'){
+      document.body.classList.add('theme-dark');
+      tBtn?.setAttribute('aria-pressed','true');
+    }
+  }catch{}
+  tBtn?.addEventListener('click', ()=>{
+    const on = document.body.classList.toggle('theme-dark');
+    tBtn.setAttribute('aria-pressed', String(on));
+    try{ localStorage.setItem(THEME_KEY, on?'dark':'light'); }catch{}
+  });
+})();
+</script>
+</body>
+</html>
