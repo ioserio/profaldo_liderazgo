@@ -1,0 +1,1117 @@
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      color:var(--ink); padding:8px 0 6px; font-size:1em; border-top:1px solid rgba(44,62,80,.1);
+  <style>
+    /* --- Variables y base --- */
+    :root{
+      --bg1:#eaf1fb; --bg2:#f4f6f8;
+      --ink:#2c3e50; --ink2:#2d3a4a; --accent:#6dd5fa;
+    .footer-social{ text-align:center; margin:4px 0 2px; }
+    footer a{ margin:0 8px; color:var(--ink); text-decoration:none; transition:transform .2s,color .2s; }
+    footer img{ width:22px; vertical-align:middle; filter:drop-shadow(0 0 2px rgba(44,62,80,.2)); }
+    .footer-bottom{ text-align:center; font-size:.85rem; opacity:.9; padding:4px 10px 0; }
+    }
+    /* Tema oscuro */
+    body.theme-dark{
+      --bg1:#0f172a; --bg2:#111827;
+      --ink:#e5e7eb; --ink2:#cbd5e1; --accent:#7dd3fc;
+      --glass: rgba(17,24,39,0.55);
+      --glass-border: rgba(148,163,184,0.25);
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+    @media (min-width: 901px){
+      /* Compactar footer en escritorio: ocultar grid y dejar solo iconos + año */
+      .footer-grid{ display:none; }
+      #footerToggle{ display:none; }
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family:'Segoe UI', Arial, sans-serif;
+      margin:0; padding:0; height:100vh;
+      background: radial-gradient(1200px 800px at 10% 10%, rgba(109,213,250,0.18), transparent 40%),
+                  radial-gradient(1000px 700px at 90% 20%, rgba(99,102,241,0.18), transparent 45%),
+                  radial-gradient(900px 600px at 30% 90%, rgba(16,185,129,0.16), transparent 50%),
+                  linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);
+      background-size: 140% 140%, 140% 140%, 140% 140%, 100% 100%;
+      animation: auroraMove 22s ease-in-out infinite;
+      overflow:hidden; display:flex; flex-direction:column;
+    }
+    @keyframes auroraMove{
+      0%,100%{ background-position: 0% 0%, 100% 0%, 0% 100%, 0% 0%; }
+      50%{ background-position: 100% 100%, 0% 100%, 100% 0%, 0% 0%; }
+    }
+    header{
+      position:fixed; top:0; left:0; width:100%; z-index:120;
+      color:#fff; text-align:center;
+      font-size:2em; font-weight:700; letter-spacing:1.2px;
+      padding:14px 0 10px;
+      background:linear-gradient(180deg, rgba(31,41,55,.65), rgba(31,41,55,.35));
+      backdrop-filter: blur(8px) saturate(120%);
+      border-bottom:1px solid rgba(255,255,255,.12);
+      text-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+    /* Estilo mejorado para el texto del encabezado */
+    .app-title{
+      display:inline-block; position:relative; padding:0 10px; line-height:1.15;
+      font-weight:800; letter-spacing:.6px;
+      background:linear-gradient(90deg,#e0f2fe 0%, #a5f3fc 45%, #93c5fd 100%);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      filter: drop-shadow(0 1px 0 rgba(0,0,0,.25));
+    }
+    .app-title::after{
+      content:""; position:absolute; left:10px; right:10px; bottom:-6px; height:3px; border-radius:2px;
+      background:linear-gradient(90deg,#38bdf8,#60a5fa,#34d399); opacity:.55;
+    }
+    .app-title::before{
+      content:""; position:absolute; top:0; bottom:0; width:18%; left:-25%;
+      background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.45) 50%, rgba(255,255,255,0) 100%);
+      transform:skewX(-20deg); animation:titleShine 6s ease-in-out infinite; pointer-events:none;
+    }
+    @keyframes titleShine{ 0%,25%{ left:-25%; } 50%{ left:120%; } 100%{ left:120%; } }
+    /* Controles del header y progreso */
+    .header-controls{ position:absolute; right:10px; top:8px; display:flex; align-items:center; gap:10px; }
+    .btn-ghost{ appearance:none; border:1px solid var(--glass-border); color:#fff; background:var(--glass); border-radius:10px; padding:8px 12px; font-weight:600; cursor:pointer; backdrop-filter:blur(8px); box-shadow: var(--shadow); transition: transform .15s ease, opacity .2s ease, border-color .2s; }
+    .btn-ghost:hover{ transform: translateY(-1px); opacity:.95; border-color: rgba(255,255,255,.45); }
+    .btn-icon{ width:38px; height:38px; display:grid; place-items:center; padding:0; }
+    .btn-ghost.on{ outline:2px solid rgba(125,211,252,.5); }
+    #slideCounter{ color:#fff; font-size:.9rem; opacity:.9; padding:4px 8px; border-radius:8px; background:rgba(0,0,0,.25); }
+    .progress{ position:fixed; top:58px; left:0; width:100%; height:4px; z-index:115; background:rgba(255,255,255,.12); }
+    .progress .bar{ width:100%; height:100%; transform-origin:left center; transform:scaleX(0); background:linear-gradient(90deg,#60a5fa,#22d3ee,#34d399); box-shadow:0 0 10px rgba(34,211,238,.55); transition: transform 300ms ease; }
+  /* Modal de credenciales */
+  .about-overlay{ position:fixed; inset:0; display:none; place-items:center; background:rgba(15,23,42,.45); backdrop-filter: blur(4px); z-index:130; pointer-events:auto; }
+  .about-overlay.open{ display:grid; }
+  /* Modo anclado al botón: overlay transparente y tarjeta posicionada cerca del trigger */
+  .about-overlay.anchored{ display:block; background:transparent; backdrop-filter:none; }
+  .about-card{
+    position:relative; overflow:hidden;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.35)) padding-box,
+      var(--glass) border-box;
+    border:1px solid var(--glass-border); border-radius:16px; box-shadow:var(--shadow);
+    color:var(--ink); width:min(520px, 92vw); padding:18px 20px;
+    backdrop-filter: blur(12px) saturate(140%);
+  }
+  /* Sutil anillo iridiscente */
+  .about-card::after{
+    content:""; position:absolute; inset:0; border-radius:16px; padding:1px;
+    background: conic-gradient(from 120deg, #60a5fa, #22d3ee, #34d399, #60a5fa);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; opacity:.55;
+  }
+  .about-overlay.anchored .about-card{
+    position:fixed; width:min(360px, 92vw); padding:14px 16px;
+    transform-origin: top right; animation: popIn .18s ease-out;
+  }
+  .about-overlay.anchored .about-card::before{
+    content:""; position:absolute; top:-8px; right:18px; width:14px; height:14px; transform:rotate(45deg);
+    background:var(--glass); border-left:1px solid var(--glass-border); border-top:1px solid var(--glass-border);
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  }
+  @keyframes popIn{ from{ opacity:0; transform: translateY(-6px) scale(.96); } to{ opacity:1; transform: translateY(0) scale(1); } }
+  .about-card h3{
+    margin:0 0 8px; font-size:1.25rem; color:var(--ink); letter-spacing:.3px;
+    background:linear-gradient(90deg,#0ea5e9,#22d3ee,#10b981);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .about-card .meta{ margin:6px 0; font-size:1rem; color:var(--ink2); }
+  .about-card .top{ display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+  .about-avatar{
+    width:44px; height:44px; border-radius:50%; display:grid; place-items:center;
+    background:radial-gradient(120% 120% at 20% 20%, #a5f3fc, #34d399);
+    color:#0f172a; font-weight:800; box-shadow:0 6px 16px rgba(31,41,55,.25);
+    position:relative;
+  }
+  .about-avatar::after{
+    content:""; position:absolute; inset:-1px; border-radius:50%; padding:1px;
+    background:linear-gradient(135deg,#60a5fa,#34d399);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; opacity:.8;
+  }
+  /* Fila con icono y contenedor suave */
+  .about-card > .meta{
+    display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:12px;
+    background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.25));
+    border:1px solid var(--glass-border);
+  }
+  .about-card > .meta strong{ color:var(--ink); }
+  .about-card > .meta::before{
+    content:""; width:28px; height:28px; border-radius:8px; display:inline-grid; place-items:center;
+    background:linear-gradient(135deg,#60a5fa,#34d399); color:#0f172a; font-size:16px; box-shadow:0 4px 10px rgba(31,41,55,.2);
+  }
+  .about-card > .meta:nth-of-type(1)::before{ content:"👤"; }
+  .about-card > .meta:nth-of-type(2)::before{ content:"📘"; }
+  .about-card > .meta:nth-of-type(3)::before{ content:"🎓"; }
+  .about-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:12px; }
+
+    /* --- Slider pantalla completa --- */
+    .deck{position:relative; width:100%; flex:1;}
+    .deck-viewport{width:100%; height:calc(100vh - var(--footer-safe)); overflow:hidden;}
+    .deck-track{display:flex; width:100%; height:100%; transition:transform 600ms ease;}
+    .deck-slide{
+      flex:0 0 100%; width:100%; height:100%;
+      display:flex; justify-content:center; align-items:center;
+      position:relative; padding:80px 20px 30px; /* espacio por header */
+    }
+
+    /* --- Card full-bleed, sin bordes --- */
+    .card{
+      width:100%; max-width:1000px; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:none; border:none; box-shadow:none; text-align:center;
+    }
+    .card-img{
+      width:260px; height:260px; object-fit:contain; margin-bottom:20px;
+      opacity:0; transform:scale(.85);
+    }
+    /* Quitar "tarjeta" y restricciones de imagen desde la 2ª en adelante */
+    .deck-slide:not(.hero-01) .card{
+      height:auto; align-items:center; justify-content:flex-start;
+    }
+    .deck-slide:not(.hero-01) .card-img{
+      width:auto; height:auto; max-width:min(700px, 92%);
+      margin:0 auto 16px; object-fit:contain;
+    }
+    .card-content{max-width:900px; padding:0 20px;}
+    .card-content h2{
+      font-size:1.8em; color:var(--ink); margin:0 0 12px;
+      opacity:0; transform:translateY(18px);
+    }
+    .answer{
+      /* Sin tarjeta: sin fondo, sin borde, tipografía como la pregunta */
+      background:transparent; border:none; padding:0; border-radius:0;
+      color:var(--ink); font-size:1.25em; font-weight:500; line-height:1.6; margin-top:16px;
+      opacity:0; transform:translateY(22px);
+    }
+
+    /* --- Activación por slide visible --- */
+    .deck-slide.active .card-img{ animation:zoomIn .9s ease forwards .2s; }
+    .deck-slide.active h2{ animation:fadeUp 1s ease forwards .9s; }
+    .deck-slide.active .answer{ animation:fadeUp 1s ease forwards 1.7s; }
+
+    @keyframes fadeUp{ to{opacity:1; transform:translateY(0);} }
+    @keyframes zoomIn{ to{opacity:1; transform:scale(1);} }
+
+  /* --- Adornos flotantes en cada slide (desactivados) --- */
+  .decor{ display:none !important; animation:none !important; }
+
+    /* --- Controles (chevrons grandes, ocultos hasta hover) --- */
+    .deck .deck-prev,.deck .deck-next{
+      position:absolute; top:50%; transform:translateY(-50%);
+      width:78px; height:78px; border-radius:8px; /* área clic transparente */
+      border:none; background:transparent; color:transparent; font-size:0;
+      cursor:pointer; box-shadow:none; display:grid; place-items:center; z-index:200;
+      opacity:0; pointer-events:auto; transition:opacity .25s ease, transform .2s ease;
+    }
+  .deck .deck-prev:hover, .deck .deck-next:hover,
+  .deck .deck-prev:focus-visible, .deck .deck-next:focus-visible{ opacity:1; }
+  /* Mostrar ambas cuando se activa la clase desde JS */
+  .deck.controls-hover .deck-prev, .deck.controls-hover .deck-next{ opacity:1; }
+    .deck .deck-prev{ left:8px; }
+    .deck .deck-next{ right:8px; }
+    /* Dibujar el chevron con bordes */
+    .deck .deck-prev::before, .deck .deck-next::before{
+      content:""; display:block; width:36px; height:36px;
+      border:6px solid rgba(44,62,80,.65); border-top:none; border-left:none;
+      border-radius:2px; transition:border-color .2s ease, transform .2s ease;
+      filter:drop-shadow(0 2px 4px rgba(0,0,0,.15));
+    }
+    /* Orientación correcta: derecha = -45deg, izquierda = 135deg */
+    .deck .deck-next::before{ transform:rotate(-45deg); }
+    .deck .deck-prev::before{ transform:rotate(135deg); }
+    .deck .deck-prev:hover::before, .deck .deck-next:hover::before{ border-color:rgba(44,62,80,.9); }
+    @media (max-width: 700px){
+      .deck .deck-prev,.deck .deck-next{ width:64px; height:64px; }
+      .deck .deck-prev::before, .deck .deck-next::before{ width:30px; height:30px; border-width:5px; }
+    }
+    .deck-dots{display:flex; gap:8px; justify-content:center; padding:12px 0 20px;}
+    .deck-dots button{
+      width:10px; height:10px; border-radius:50%;
+      border:1px solid #2980b9; background:#eaf1fb; opacity:.8; cursor:pointer;
+    }
+    .deck-dots button.active{ background:#2980b9; border-color:#2980b9; opacity:1; transform:scale(1.15); }
+
+    /* --- Footer camuflado con el body --- */
+    footer{
+      position:fixed; left:0; right:0; bottom:0; z-index:110;
+      background:linear-gradient(135deg,var(--bg2) 0%,var(--bg1) 100%);
+      color:var(--ink); padding:6px 0 4px; font-size:.95em; border-top:1px solid rgba(44,62,80,.1);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+    .footer-grid{ max-width:1200px; margin:0 auto; padding:8px 16px 4px; display:grid; grid-template-columns:2fr 1fr 1.2fr; gap:18px; align-items:start; }
+    .footer-col h4{ margin:0 0 8px; font-size:1.05rem; color:var(--ink); }
+    .footer-col p{ margin:4px 0 0; opacity:.9; }
+    .footer-actions{ display:flex; flex-wrap:wrap; gap:10px; }
+    .footer-actions .btn-ghost{ color:var(--ink); background:#fff; border-color:#e5e7eb; }
+    .footer-actions .btn-ghost:hover{ color:#0f172a; }
+  .footer-social{ text-align:center; margin:2px 0; }
+  footer a{ margin:0 8px; color:var(--ink); text-decoration:none; transition:transform .2s,color .2s; }
+    footer a:hover{ color:#2980b9; transform:scale(1.06); }
+  footer img{ width:20px; vertical-align:middle; filter:drop-shadow(0 0 2px rgba(44,62,80,.2)); transition: filter .2s ease, transform .2s ease; }
+  body.theme-dark footer a:hover{ color:#7dd3fc; }
+  /* Adaptar iconos al tema */
+  body.theme-dark footer img{ filter: invert(1) brightness(1.15) drop-shadow(0 0 2px rgba(255,255,255,.12)); }
+  .footer-bottom{ text-align:center; font-size:.8rem; opacity:.9; padding:0; }
+  .footer-quote{ text-align:center; font-size:.85rem; color:var(--ink2); opacity:.95; padding:0 10px; margin:4px 0 6px; font-style:italic; }
+    /* Toggle flotante del footer (solo móviles/tablet) */
+    #footerToggle{ position:fixed; right:12px; bottom:12px; z-index:120; display:none; }
+    @media (max-width: 900px){
+      .footer-grid{ grid-template-columns:1fr; gap:10px; text-align:center; }
+      .footer-actions{ justify-content:center; }
+      /* Footer colapsable por defecto en pantallas pequeñas */
+      footer{ transform: translateY(calc(100% - 32px)); transition: transform 300ms ease; }
+      .footer-open footer{ transform: translateY(0); }
+      #footerToggle{ display:block; }
+    }
+    @media (min-width: 901px){
+      /* En escritorio, ocultar la grilla para un footer más angosto */
+      .footer-grid{ display:none; }
+    }
+
+    /* --- Selector de preguntas (lista desplegable) --- */
+    .question-jumper{
+      position:fixed; top:74px; right:16px; left:auto; transform:none; z-index:250;
+      border-radius:12px; padding:8px; overflow:visible; min-width:260px;
+      background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.5));
+      border:1px solid #dbe6f3; box-shadow:0 12px 28px rgba(44,62,80,.18);
+      backdrop-filter: blur(10px) saturate(130%);
+    }
+  .question-jumper .visually-hidden{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+    /* Iridiscence border ring */
+    .question-jumper::after{
+      content:""; position:absolute; inset:0; border-radius:12px; padding:1px; pointer-events:none;
+      background: conic-gradient(from 120deg, #60a5fa, #22d3ee, #34d399, #60a5fa);
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+              mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; opacity:.55;
+    }
+    .question-jumper:hover{ box-shadow:0 14px 30px rgba(44,62,80,.2); }
+    .question-jumper select{
+      -webkit-appearance:none; -moz-appearance:none; appearance:none;
+      font: inherit; color: var(--ink);
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.75));
+      border:1px solid #cfd8e3; border-radius:10px;
+      padding:10px 40px 10px 36px; min-width:260px; max-width:92vw; outline:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 3px 10px rgba(44,62,80,.08);
+      transition: border-color .2s, box-shadow .2s, transform .15s;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='%23475569'%3E%3Cpath d='M7 5h10a1 1 0 0 1 1 1v1H6V6a1 1 0 0 1 1-1zm-1 5h12v2H6v-2zm0 4h12v2H6v-2z'/%3E%3C/svg%3E");
+      background-repeat:no-repeat, no-repeat;
+      background-position: right 12px center, left 10px center;
+      background-size: 18px 18px, 18px 18px;
+    }
+    .question-jumper select:hover{ border-color:#b6c4d6; }
+    .question-jumper select:focus{ border-color:#93c5fd; box-shadow:0 0 0 2px rgba(99,102,241,.25), inset 0 1px 0 rgba(255,255,255,.5); }
+    /* Tema oscuro para el selector */
+    body.theme-dark .question-jumper{ background: var(--glass); border-color: var(--glass-border); box-shadow: 0 12px 28px rgba(0,0,0,.4); }
+    body.theme-dark .question-jumper::after{ opacity:.6; }
+    body.theme-dark .question-jumper select{
+      border-color: var(--glass-border); color: var(--ink);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 3px 10px rgba(0,0,0,.25);
+      /* Re-layers: chevron, list icon, then gradient background */
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='%23cbd5e1'%3E%3Cpath d='M7 5h10a1 1 0 0 1 1 1v1H6V6a1 1 0 0 1 1-1zm-1 5h12v2H6v-2zm0 4h12v2H6v-2z'/%3E%3C/svg%3E"),
+        linear-gradient(180deg, rgba(17,24,39,.7), rgba(17,24,39,.5));
+      background-repeat: no-repeat, no-repeat, no-repeat;
+      background-position: right 12px center, left 10px center, 0 0;
+      background-size: 18px 18px, 18px 18px, auto;
+    }
+    body.theme-dark .question-jumper select:focus{ border-color: rgba(125,211,252,.45); box-shadow: 0 0 0 2px rgba(125,211,252,.35), inset 0 1px 0 rgba(255,255,255,.05); }
+    /* Algunos navegadores respetan el estilo de option */
+    body.theme-dark .question-jumper select option{ background: #0f172a; color: var(--ink); }
+
+    /* Custom dropdown (qdd) */
+  .qdd{ position:relative; display:block; width:100%; }
+    .qdd-toggle{
+      display:inline-flex; align-items:center; gap:10px; width:100%; cursor:pointer;
+      -webkit-appearance:none; appearance:none; user-select:none;
+      font: inherit; font-size:.95rem; line-height:1.2; color: var(--ink);
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.75));
+      border:1px solid #cfd8e3; border-radius:10px;
+  padding:10px 40px 10px 36px; min-width:260px; max-width:100%; outline:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 3px 10px rgba(44,62,80,.08);
+      transition: border-color .2s, box-shadow .2s, transform .15s;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='%23475569'%3E%3Cpath d='M7 5h10a1 1 0 0 1 1 1v1H6V6a1 1 0 0 1 1-1zm-1 5h12v2H6v-2zm0 4h12v2H6v-2z'/%3E%3C/svg%3E");
+      background-repeat:no-repeat, no-repeat;
+      background-position: right 12px center, left 10px center;
+      background-size: 18px 18px, 18px 18px;
+    }
+    .qdd-toggle:hover{ border-color:#b6c4d6; }
+    .qdd-toggle:focus{ border-color:#93c5fd; box-shadow:0 0 0 2px rgba(99,102,241,.25), inset 0 1px 0 rgba(255,255,255,.5); }
+    .qdd[aria-expanded="true"] .qdd-toggle{ border-color:#93c5fd; }
+    .qdd-menu{
+      position:absolute; top: calc(100% + 8px); left:0; right:0; min-width:100%; max-width:min(92vw, 420px);
+      max-height:60vh; overflow:auto; padding:8px; border-radius:12px; z-index:260; box-sizing:border-box;
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.85));
+      border:1px solid #dbe6f3; box-shadow:0 18px 40px rgba(44,62,80,.25);
+      backdrop-filter: blur(12px) saturate(140%);
+      outline: none; display:none;
+    }
+    .qdd[aria-expanded="true"] .qdd-menu{ display:block; animation: popIn .16s ease-out; }
+    .qdd-item{
+      display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
+      color: var(--ink); cursor:pointer; white-space:nowrap; font-size:.95rem; line-height:1.2;
+      box-sizing:border-box; border:1px solid transparent; /* evita salto de tamaño al seleccionar */
+    }
+    .qdd-item:hover{ background: rgba(46,95,255,0.08); }
+  .qdd-item[aria-selected="true"]{ background: linear-gradient(180deg, rgba(99,102,241,.12), rgba(34,211,238,.12)); border-color: rgba(99,102,241,.25); }
+    .qdd-item .num{ width:1.6em; text-align:right; opacity:.8; font-variant-numeric: tabular-nums; }
+  .qdd-item .txt{ flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    /* Dark theme for QDD */
+    body.theme-dark .qdd-toggle{
+      color: var(--ink);
+      background: linear-gradient(180deg, rgba(17,24,39,.7), rgba(17,24,39,.5));
+      border-color: var(--glass-border);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 3px 10px rgba(0,0,0,.25);
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='%23cbd5e1'%3E%3Cpath d='M7 5h10a1 1 0 0 1 1 1v1H6V6a1 1 0 0 1 1-1zm-1 5h12v2H6v-2zm0 4h12v2H6v-2z'/%3E%3C/svg%3E");
+      background-repeat:no-repeat, no-repeat; background-position: right 12px center, left 10px center; background-size: 18px 18px, 18px 18px;
+    }
+    body.theme-dark .qdd-menu{
+      background: linear-gradient(180deg, rgba(17,24,39,.92), rgba(17,24,39,.86));
+      border-color: var(--glass-border); box-shadow:0 18px 44px rgba(0,0,0,.45);
+    }
+    body.theme-dark .qdd-item:hover{ background: rgba(99,102,241,.15); }
+    body.theme-dark .qdd-item[aria-selected="true"]{ background: linear-gradient(180deg, rgba(99,102,241,.18), rgba(34,211,238,.16)); border:1px solid rgba(148,163,184,.28); }
+    @media (max-width: 600px){
+      .question-jumper{ top:8px; right:8px; }
+      .question-jumper select{ min-width: 180px; max-width: calc(100vw - 24px); }
+    }
+
+    /* ============ PRIMERA TARJETA CUSTOM ============ */
+    .deck-slide.hero-01{ overflow:hidden; }
+    /* Grid 2 columnas: texto | figura */
+    .hero-01 .hero-wrap{
+      width:100%; max-width:1200px; margin:0 auto;
+      display:grid; grid-template-columns:1.1fr .9fr;
+      align-items:center; gap:clamp(16px, 4vw, 40px);
+      padding:0 20px; position:relative; z-index:2;
+      text-align:left;  /* texto alineado a la izquierda en la primera */
+    }
+    .hero-01 .content-left h2{
+      font-size:clamp(1.6rem, 2.8vw, 2.4rem);
+      line-height:1.2; color:var(--ink); margin:0 0 12px;
+      opacity:0; transform:translateY(18px);
+    }
+    .hero-01 .content-left .answer{ margin-top:6px; }
+    /* Figura derecha (PNG sin fondo) */
+    .hero-01 .figure-right{ display:grid; place-items:center; }
+    .hero-01 .figure-right img{
+      width:min(100%, 420px); max-height:65vh; object-fit:contain;
+      will-change:transform, opacity; opacity:0;
+      transform:translateX(40px) scale(.97);
+    }
+    /* Paisaje inferior (full width dentro del slide) */
+    .hero-01 .landscape{
+      position:absolute; left:50%; transform:translateX(-50%);
+      bottom:0; width:min(1200px, 100%); height:clamp(120px, 22vh, 260px);
+      border-radius:18px 18px 0 0; overflow:hidden;
+      box-shadow:0 -8px 26px rgba(44,62,80,.15); z-index:1;
+    }
+    .hero-01 .landscape img{
+      width:100%; height:100%; object-fit:cover; object-position:center;
+      -webkit-mask-image:linear-gradient(to top, black 80%, transparent 100%);
+              mask-image:linear-gradient(to top, black 80%, transparent 100%);
+      transform:translateY(30px); opacity:0;
+    }
+    /* GIF decorativo a la derecha sin tapar la figura */
+
+    /* Figura lateral para slides 2..20 (PNG sin fondo) */
+    .side-figure{
+      position:absolute; right:clamp(12px, 2vw, 24px); top:clamp(120px, 18vh, 220px);
+      width:clamp(120px, 18vw, 260px); height:auto; object-fit:contain;
+      opacity:0; transform:translateX(26px) scale(.98); pointer-events:none; z-index:1;
+      filter:drop-shadow(0 10px 22px rgba(44,62,80,.18));
+    }
+    .deck-slide.active .side-figure{ animation:slideInRight .9s cubic-bezier(.2,.8,.2,1) forwards .3s; }
+    .hero-01 .gif-side{
+      position:absolute; right:clamp(12px, 2vw, 24px); top:clamp(120px, 18vh, 220px);
+      width:clamp(120px, 18vw, 260px); height:auto; object-fit:contain;
+      opacity:0; transform:translateY(12px);
+      pointer-events:none; z-index:2;
+    }
+    .deck-slide.hero-01.active .gif-side{ animation:fadeUp .8s ease forwards .6s; }
+    /* Animación al activar slide */
+    .deck-slide.hero-01.active .content-left h2{ animation:fadeUp .9s ease forwards .2s; }
+    .deck-slide.hero-01.active .content-left .answer{ animation:fadeUp 1s ease forwards .6s; }
+    .deck-slide.hero-01.active .figure-right img{ animation:slideInRight .9s cubic-bezier(.2,.8,.2,1) forwards .4s; }
+    .deck-slide.hero-01.active .landscape img{ animation:riseUp 1s ease forwards .8s; }
+    @keyframes slideInRight{ to{opacity:1; transform:translateX(0) scale(1);} }
+    @keyframes riseUp{ to{opacity:1; transform:translateY(0);} }
+
+    /* Responsive para la primera tarjeta */
+    @media (max-width: 900px){
+      .hero-01 .hero-wrap{ grid-template-columns:1fr; gap:10px; padding-bottom:24vh; }
+      .hero-01 .figure-right img{ width:min(72%, 380px); max-height:40vh; }
+      .hero-01 .card-content{ padding:0; }
+    }
+  /* Tilt y accesibilidad de movimiento */
+  .tilt{ will-change: transform; transition: transform 240ms cubic-bezier(.2,.8,.2,1), filter .3s ease; filter: drop-shadow(0 22px 35px rgba(31,41,55,.25)); }
+  .deck-slide.active .tilt:hover{ transform: translate3d(0,0,0) scale(1.02) !important; }
+  @media (prefers-reduced-motion: reduce){ *, *::before, *::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition:none !important; } }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="app-title">Cuestionario sobre Liderazgo y Trabajo en Equipo</span>
+    <div class="header-controls" role="group" aria-label="Controles de presentación">
+      <button id="themeToggle" class="btn-ghost btn-icon" title="Cambiar tema" aria-pressed="false">🌗</button>
+  <button id="aboutToggle" class="btn-ghost" title="Mostrar créditos">🪪 Créditos</button>
+      <button id="autoplayToggle" class="btn-ghost" title="Reproducir automático (barra espaciadora)">▶ Auto</button>
+      <span id="slideCounter" aria-live="polite">1 / 20</span>
+    </div>
+  </header>
+  <div class="progress" aria-hidden="true"><div class="bar" id="progressBar"></div></div>
+  <!-- Modal créditos -->
+  <div id="aboutOverlay" class="about-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="about-card" role="document">
+      <div class="top">
+        <div class="about-avatar" aria-hidden="true">👤</div>
+        <div>
+          <h3 id="aboutTitle">Créditos</h3>
+          <!-- <div class="meta">Edita estos datos en el HTML</div> -->
+        </div>
+      </div>
+      <div class="meta"><strong>Nombres:</strong> Rene Ricardo Merino Condori</div>
+      <div class="meta"><strong>Ciclo:</strong> VI <b>Turno:</b> Diurno </div>
+      <div class="meta"><strong>Carrera:</strong> Computacion e informatica</div>
+      <div class="about-actions">
+        <!-- <button id="aboutClose" class="btn-ghost">Cerrar</button> -->
+      </div>
+    </div>
+  </div>
+  <div class="question-jumper" aria-label="Ir a pregunta">
+    <div class="visually-hidden" id="qddLive" aria-live="polite"></div>
+    <select id="questionSelect" aria-label="Selecciona una pregunta" class="visually-hidden">
+      <option value="0">1.¿Cómo se define el liderazgo?</option>
+      <option value="1">2.¿Liderazgo sinónimo de fuerza?</option>
+      <option value="2">3.Influencia positiva más allá...</option>
+      <option value="3">4.Ámbitos del liderazgo</option>
+      <option value="4">5.Liderar es inspirar y transformar</option>
+      <option value="5">6.Diferencias entre líder y gestor</option>
+      <option value="6">7.Según Warren Bennis...</option>
+      <option value="7">8.Líder vs Jefe</option>
+      <option value="8">9.Subordinados vs seguidores</option>
+      <option value="9">10.Uso responsable del poder</option>
+      <option value="10">11.Comprensión individual</option>
+      <option value="11">12.Ejemplo y acción</option>
+      <option value="12">13.Cualidades clave de un líder</option>
+      <option value="13">14.Comunicación efectiva</option>
+      <option value="14">15.Liderazgo autocrático</option>
+      <option value="15">16.Liderazgo democrático</option>
+      <option value="16">17.Liderazgo liberal</option>
+      <option value="17">18.Liderazgo transformacional</option>
+      <option value="18">19.Impacto social</option>
+      <option value="19">20.Llamado a la acción</option>
+    </select>
+    <div class="qdd" id="qdd" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-owns="qddMenu">
+      <button type="button" class="qdd-toggle" id="qddToggle" aria-controls="qddMenu" aria-label="Selecciona una pregunta"></button>
+      <div class="qdd-menu" id="qddMenu" role="listbox" tabindex="-1" aria-labelledby="qddToggle"></div>
+    </div>
+    </div>
+
+  <section class="deck">
+    <div class="deck-viewport">
+      <div class="deck-track">
+
+        <!-- 1) TARJETA CUSTOM: texto izq, líder 3D der, paisaje inferior -->
+        <div class="deck-slide hero-01">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+
+          <div class="hero-wrap">
+            <!-- Texto a la izquierda -->
+            <div class="content-left">
+              <div class="card-content">
+                <h2>1. ¿Cómo se define el liderazgo según el documento y en qué se diferencia de un simple cargo o posición?</h2>
+                <div class="answer">
+                  El liderazgo se define como la capacidad de influir positivamente en las personas para alcanzar objetivos comunes.
+                  Se diferencia de un simple cargo o posición porque no depende de la autoridad formal, sino de la habilidad para inspirar y guiar a otros.
+                </div>
+              </div>
+            </div>
+
+            <!-- Imagen a la derecha principal -->
+            <div class="figure-right">
+              <img class="figure-right-img tilt" src="Imagenes/1.png" alt="Transformación" decoding="async">
+            </div>
+          </div>
+
+          <!-- Paisaje inferior -->
+          <div class="landscape">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80" alt="Paisaje">
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/2.png" alt="Transformación" decoding="async">
+            <div class="card-content">
+              <h2>2. ¿Por qué el liderazgo se considera una fuerza transformadora en las organizaciones y la sociedad?</h2>
+              <div class="answer">El liderazgo transforma porque impulsa cambios positivos, motiva a las personas a superar sus límites y fomenta la innovación, generando impacto tanto en las organizaciones como en la sociedad.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/3.png" alt="Influencia positiva" decoding="async">
+            <div class="card-content">
+              <h2>3. Explica qué significa que el liderazgo sea una influencia positiva más allá de la autoridad formal.</h2>
+              <div class="answer">Significa que el líder inspira y motiva a otros por su ejemplo, valores y acciones, no solo por el poder que le otorga un cargo. Su influencia se basa en el respeto y la confianza que genera.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/4.png" alt="Ámbitos" decoding="async">
+            <div class="card-content">
+              <h2>4. ¿En qué ámbitos puede desarrollarse el liderazgo según el texto?</h2>
+              <div class="answer">El liderazgo puede desarrollarse en cualquier ámbito: familiar, educativo, social, comunitario y laboral. No está limitado a las organizaciones formales.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/5.png" alt="Inspirar y transformar" decoding="async">
+            <div class="card-content">
+              <h2>5. ¿Qué implica la idea de que “liderar es inspirar y transformar”?</h2>
+              <div class="answer">Implica que el líder motiva a las personas a dar lo mejor de sí mismas y promueve cambios positivos, ayudando a transformar realidades y alcanzar metas.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/6.png" alt="Líder vs Gestor" decoding="async">
+            <div class="card-content">
+              <h2>6. ¿Cuáles son las principales diferencias entre un líder y un gestor?</h2>
+              <div class="answer">El líder inspira y guía, mientras que el gestor administra y controla. El líder se enfoca en las personas y el cambio; el gestor, en los procesos y la estabilidad.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/7.png" alt="Warren Bennis" decoding="async">
+            <div class="card-content">
+              <h2>7. Según Warren Bennis, ¿cómo se diferencia el líder del gestor?</h2>
+              <div class="answer">Warren Bennis señala que el gestor hace las cosas bien y el líder hace lo correcto. El gestor mantiene el orden y el líder impulsa la innovación y el cambio.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/8.png" alt="Líder vs Jefe" decoding="async">
+            <div class="card-content">
+              <h2>8. ¿Qué aspectos fundamentales distinguen a un líder de un jefe?</h2>
+              <div class="answer">El líder inspira y motiva, mientras que el jefe dirige y ordena. El líder genera seguidores voluntarios; el jefe tiene subordinados por obligación.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/9.png" alt="Seguidores voluntarios" decoding="async">
+            <div class="card-content">
+              <h2>9. ¿Cuál es la diferencia esencial entre tener subordinados y tener seguidores voluntarios?</h2>
+              <div class="answer">Tener subordinados implica obediencia por jerarquía; tener seguidores voluntarios significa que las personas eligen seguir al líder por convicción y confianza.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/10.png" alt="Uso del poder" decoding="async">
+            <div class="card-content">
+              <h2>10. Menciona dos características esenciales de un líder relacionadas con el uso responsable del poder.</h2>
+              <div class="answer">Un líder utiliza el poder para servir y proteger a su equipo, y actúa con ética y responsabilidad en la toma de decisiones.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/11.png" alt="Comprensión individual" decoding="async">
+            <div class="card-content">
+              <h2>11. ¿Por qué la comprensión individual es clave para un liderazgo efectivo?</h2>
+              <div class="answer">Porque permite al líder conocer las necesidades, motivaciones y talentos de cada persona, facilitando una gestión personalizada y efectiva.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/3.png" alt="Ejemplo y acción" decoding="async">
+            <div class="card-content">
+              <h2>12. Explica cómo un liderazgo ejemplar influye más con acciones que con palabras.</h2>
+              <div class="answer">El líder ejemplar predica con el ejemplo; sus acciones coherentes inspiran confianza y motivan a otros a seguir su conducta, más allá de lo que diga.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/1.png" alt="Cualidades" decoding="async">
+            <div class="card-content">
+              <h2>13. ¿Cuáles son las cinco cualidades clave de un buen líder según el documento?</h2>
+              <div class="answer">Visión, integridad, empatía, comunicación efectiva y capacidad para motivar e inspirar.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/5.png" alt="Comunicación" decoding="async">
+            <div class="card-content">
+              <h2>14. ¿Por qué la comunicación efectiva se considera el corazón del liderazgo?</h2>
+              <div class="answer">Porque permite transmitir ideas, escuchar a los demás y resolver conflictos, creando confianza y cohesión en el equipo.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/8.png" alt="Autocrático" decoding="async">
+            <div class="card-content">
+              <h2>15. ¿Qué caracteriza al estilo de liderazgo autocrático y en qué situaciones puede ser útil?</h2>
+              <div class="answer">El liderazgo autocrático se caracteriza por la toma de decisiones centralizada y el control absoluto. Es útil en situaciones de crisis o cuando se requiere rapidez y disciplina.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 16 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/11.png" alt="Democrático" decoding="async">
+            <div class="card-content">
+              <h2>16. ¿Qué beneficios aporta el liderazgo democrático en los equipos de trabajo?</h2>
+              <div class="answer">Fomenta la participación, la creatividad y el compromiso de los miembros del equipo, mejorando el clima laboral y los resultados.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 17 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/4.png" alt="Liberal" decoding="async">
+            <div class="card-content">
+              <h2>17. Explica una ventaja y una limitación del liderazgo liberal.</h2>
+              <div class="answer">Ventaja: promueve la autonomía y el desarrollo personal. Limitación: puede generar falta de dirección y desorganización si no se gestiona adecuadamente.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 18 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/2.png" alt="Transformacional" decoding="async">
+            <div class="card-content">
+              <h2>18. ¿Qué diferencia al liderazgo transformacional de otros estilos?</h2>
+              <div class="answer">El liderazgo transformacional se enfoca en inspirar y motivar a los seguidores para lograr cambios profundos y positivos, más allá de los intereses individuales.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 19 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/9.png" alt="Impacto social" decoding="async">
+            <div class="card-content">
+              <h2>19. ¿Cómo puede el liderazgo impactar positivamente en la sociedad y las comunidades?</h2>
+              <div class="answer">El liderazgo positivo promueve valores, solidaridad y desarrollo, generando cambios que benefician a la sociedad y fortalecen las comunidades.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20 -->
+        <div class="deck-slide">
+          <span class="decor d1"></span><span class="decor d2"></span><span class="decor d3"></span>
+          <div class="card">
+            <img class="card-img tilt" src="Imagenes/8.png" alt="Líder auténtico" decoding="async">
+            <div class="card-content">
+              <h2>20. ¿Qué llamado a la acción propone el documento para quienes deseen ser líderes auténticos?</h2>
+              <div class="answer">El documento invita a quienes deseen ser líderes auténticos a actuar con integridad, servir a los demás y buscar siempre el crecimiento personal y colectivo.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="deck-prev" aria-label="Anterior">‹</button>
+    <button class="deck-next" aria-label="Siguiente">›</button>
+    <div class="deck-dots" role="tablist" aria-label="Paginación"></div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Sobre este cuestionario</h4>
+        <p>Explora 20 conceptos clave de liderazgo y trabajo en equipo con una experiencia visual dinámica.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Acciones rápidas</h4>
+        <div class="footer-actions">
+          <button id="goFirst" class="btn-ghost">⟵ Ir al inicio</button>
+          <button id="goLast" class="btn-ghost">Ir al final ⟶</button>
+          <button id="printBtn" class="btn-ghost">🖨 Imprimir</button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <p><a href="mailto:contacto@example.com">contacto@example.com</a></p>
+        <p><a href="#" id="toTopLink">Volver arriba</a></p>
+      </div>
+    </div>
+    <div class="footer-social">
+      <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
+      </a>
+      <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter">
+      </a>
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
+      </a>
+    </div>
+  <div class="footer-quote">Pequeños actos crean grandes cambios.</div>
+    <div class="footer-bottom">&copy; <span id="year">2025</span> Derechos reservados</div>
+  </footer>
+  <button id="footerToggle" class="btn-ghost">▲ Footer</button>
+
+  <script>
+  window.addEventListener('DOMContentLoaded', () => {
+      const deck = document.querySelector('.deck');
+      const track = deck.querySelector('.deck-track');
+      const prev = deck.querySelector('.deck-prev');
+      const next = deck.querySelector('.deck-next');
+      const dotsWrap = deck.querySelector('.deck-dots');
+      const slides = [...track.children];
+      let index = 0;
+    const select = document.getElementById('questionSelect');
+  // Custom dropdown refs
+  const qdd = document.getElementById('qdd');
+  const qddToggle = document.getElementById('qddToggle');
+  const qddMenu = document.getElementById('qddMenu');
+  const qddLive = document.getElementById('qddLive');
+  // Helper: remove leading numeric prefix like "1. " from option labels
+  const stripNumPrefix = (t)=> String(t||'').replace(/^\s*\d+\.\s*/, '').trim();
+    // Nuevos controles
+    const themeToggle = document.getElementById('themeToggle');
+    const autoplayToggle = document.getElementById('autoplayToggle');
+  const slideCounter = document.getElementById('slideCounter');
+    const progressBar = document.getElementById('progressBar');
+    const total = slides.length;
+    let autoplayId = null;
+  // Modal Credenciales
+  const aboutToggle = document.getElementById('aboutToggle');
+  const aboutOverlay = document.getElementById('aboutOverlay');
+  const aboutClose = document.getElementById('aboutClose');
+    // Fallback para imágenes no encontradas (SVG inline)
+    const placeholderSVG = encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><defs><linearGradient id='g' x1='0' x2='1' y1='0' y2='1'><stop stop-color='#60a5fa' offset='0'/><stop stop-color='#22d3ee' offset='0.5'/><stop stop-color='#34d399' offset='1'/></linearGradient></defs><rect width='100%' height='100%' fill='url(#g)' opacity='0.18'/><rect x='20' y='20' width='760' height='560' rx='24' fill='none' stroke='#64748b' stroke-width='3' opacity='0.45'/><g fill='#1f2937' opacity='0.7'><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Segoe UI, Arial' font-size='32'>Imagen no disponible</text></g></svg>`);
+    document.querySelectorAll('.figure-right-img, .card-img').forEach(img=>{
+      img.addEventListener('error', ()=>{
+        img.src = `data:image/svg+xml;charset=utf-8,${placeholderSVG}`;
+      }, {once:true});
+    });
+
+    // Tema persistente
+    const THEME_KEY = 'cl_theme';
+    try{
+      const savedTheme = localStorage.getItem(THEME_KEY);
+      if(savedTheme==='dark'){
+        document.body.classList.add('theme-dark');
+        themeToggle?.setAttribute('aria-pressed','true');
+      }
+    }catch{}
+    themeToggle?.addEventListener('click', ()=>{
+      const on = document.body.classList.toggle('theme-dark');
+      themeToggle.setAttribute('aria-pressed', String(on));
+      try{ localStorage.setItem(THEME_KEY, on?'dark':'light'); }catch{}
+    });
+
+      function setActive(i){
+        slides.forEach((s, k) => {
+          s.classList.toggle('active', k===i);
+          if (k===i){
+            // Reiniciar animaciones del slide activo (incluye la tarjeta 1 custom)
+            const img = s.querySelector('.card-img, .figure-right img');
+            const h2 = s.querySelector('h2');
+            const ans = s.querySelector('.answer');
+            [img,h2,ans].forEach(el=>{
+              if(!el) return;
+              el.style.animation='none';
+              void el.offsetWidth; // reflow
+              el.style.animation='';
+            });
+          }
+        });
+        // Actualizar contador y progreso
+        if(slideCounter){ slideCounter.textContent = `${i+1} / ${total}`; }
+        if(progressBar){
+          const p = (i)/(Math.max(1,total-1));
+          progressBar.style.transform = `scaleX(${p})`;
+        }
+      }
+    function update(){
+        track.style.transform = `translateX(-${index*100}%)`;
+        updateDots();
+        setActive(index);
+      if(select && select.value !== String(index)) select.value = String(index);
+      // Sync QDD
+      if(qdd){
+        const items = qddMenu?.querySelectorAll('[role="option"]');
+        items?.forEach((it,i)=>{
+          it.setAttribute('aria-selected', String(i===index));
+        });
+        const raw = select?.options?.[index]?.text;
+        qddToggle.textContent = raw ? `${index+1}. ${stripNumPrefix(raw)}` : `Pregunta ${index+1}`;
+      }
+      }
+      function buildDots(){
+        dotsWrap.innerHTML = '';
+        slides.forEach((_,i)=>{
+          const b=document.createElement('button');
+          b.setAttribute('aria-label','Ir a la tarjeta '+(i+1));
+          b.addEventListener('click',()=>{ index=i; update(); });
+          dotsWrap.appendChild(b);
+        });
+      }
+      function updateDots(){
+        const btns = dotsWrap.querySelectorAll('button');
+        btns.forEach((b,i)=>b.classList.toggle('active', i===index));
+      }
+      function goNext(){ index = (index+1)%slides.length; update(); }
+      function goPrev(){ index = (index-1+slides.length)%slides.length; update(); }
+
+  // Autoplay
+  function startAutoplay(){ if(autoplayId) return; autoplayToggle?.classList.add('on'); autoplayId = setInterval(()=>goNext(), 4500); }
+  function stopAutoplay(){ if(!autoplayId) return; clearInterval(autoplayId); autoplayId=null; autoplayToggle?.classList.remove('on'); }
+  function toggleAutoplay(){ if(autoplayId) stopAutoplay(); else startAutoplay(); }
+  autoplayToggle?.addEventListener('click', toggleAutoplay);
+
+    next.addEventListener('click', goNext);
+      prev.addEventListener('click', goPrev);
+    // Mostrar ambas flechas cuando se pasa el cursor por cualquiera
+    const deckEl = deck;
+    const showBoth = ()=> deckEl.classList.add('controls-hover');
+    const hideBoth = ()=> deckEl.classList.remove('controls-hover');
+    ;['mouseenter','focusin'].forEach(ev=>{
+      prev.addEventListener(ev, showBoth); next.addEventListener(ev, showBoth);
+    });
+    ;['mouseleave','focusout','blur'].forEach(ev=>{
+      prev.addEventListener(ev, hideBoth); next.addEventListener(ev, hideBoth);
+    });
+    // Build custom dropdown (qdd)
+    if(qdd && select){
+      // Populate menu
+      qddMenu.innerHTML = '';
+      [...select.options].forEach((opt,i)=>{
+        const div = document.createElement('div');
+        div.className = 'qdd-item';
+        div.setAttribute('role','option');
+        div.setAttribute('aria-selected', String(i===0));
+        div.dataset.index = String(i);
+        div.innerHTML = `<span class="num">${i+1}.</span><span class="txt">${stripNumPrefix(opt.text)}</span>`;
+        div.addEventListener('click', ()=>{ index=i; update(); closeMenu(); qddToggle.focus(); });
+        qddMenu.appendChild(div);
+      });
+      // Toggle label
+      qddToggle.textContent = `1. ${stripNumPrefix(select.options[0].text)}`;
+      // Open/close helpers
+      const openMenu = ()=>{ qdd.setAttribute('aria-expanded','true'); qddMenu.focus(); };
+      const closeMenu = ()=>{ qdd.setAttribute('aria-expanded','false'); };
+      qddToggle.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const ex = qdd.getAttribute('aria-expanded')==='true';
+        if(ex) closeMenu(); else openMenu();
+      });
+      document.addEventListener('pointerdown', (ev)=>{
+        if(!qdd.contains(ev.target)) closeMenu();
+      }, true);
+      // Keyboard navigation on menu
+      qddMenu.addEventListener('keydown', (e)=>{
+        const items = [...qddMenu.querySelectorAll('[role="option"]')];
+        const cur = items.findIndex(it=>it.getAttribute('aria-selected')==='true');
+        if(e.key==='ArrowDown'){ e.preventDefault(); const ni = Math.min(items.length-1, cur+1); items[ni].scrollIntoView({block:'nearest'}); items.forEach((it,i)=>it.setAttribute('aria-selected', String(i===ni))); }
+        else if(e.key==='ArrowUp'){ e.preventDefault(); const ni = Math.max(0, cur-1); items[ni].scrollIntoView({block:'nearest'}); items.forEach((it,i)=>it.setAttribute('aria-selected', String(i===ni))); }
+        else if(e.key==='Enter' || e.key===' '){ e.preventDefault(); const ni = items.findIndex(it=>it.getAttribute('aria-selected')==='true'); if(ni>-1){ index=ni; update(); closeMenu(); qddToggle.focus(); } }
+        else if(e.key==='Escape'){ e.preventDefault(); closeMenu(); qddToggle.focus(); }
+      });
+      // Keep native select updated and still listen changes (for accessibility)
+      select.addEventListener('change', (e)=>{
+        const v = parseInt(e.target.value,10);
+        if(!Number.isNaN(v)){ index = Math.max(0, Math.min(slides.length-1, v)); update(); }
+      });
+    }
+  // Modal handlers
+      function openAbout(){
+        if(!aboutOverlay) return;
+        // Abrir en modo anclado al botón
+        aboutOverlay.classList.add('open','anchored');
+        aboutOverlay.setAttribute('aria-hidden','false');
+        const card = aboutOverlay.querySelector('.about-card');
+        const btn = aboutToggle;
+        if(card && btn){
+          // Medir y posicionar junto al botón (debajo, alineado a la derecha)
+          card.style.visibility='hidden';
+          card.style.top = '-9999px';
+          card.style.left = '-9999px';
+          // Forzar layout antes de medir
+          requestAnimationFrame(()=>{
+            const br = btn.getBoundingClientRect();
+            const cw = card.offsetWidth; const ch = card.offsetHeight;
+            let left = Math.max(8, br.right - cw);
+            let top = br.bottom + 8;
+            // Si se sale por abajo, mostrar arriba del botón
+            const vh = window.innerHeight; const vw = window.innerWidth;
+            if(top + ch > vh - 8){ top = Math.max(8, br.top - ch - 10); }
+            // Si se sale por la izquierda, alinear al borde izq con margen
+            if(left < 8){ left = 8; }
+            // Si se sale por la derecha, recortar
+            if(left + cw > vw - 8){ left = vw - cw - 8; }
+            card.style.top = `${top}px`;
+            card.style.left = `${left}px`;
+            card.classList.add('popover');
+            card.style.visibility='visible';
+          });
+        }
+      }
+      function toggleAbout(){
+        if(aboutOverlay?.classList.contains('open')) closeAbout(); else openAbout();
+      }
+  function closeAbout(){
+    if(!aboutOverlay) return;
+    aboutOverlay.classList.remove('open','anchored');
+    aboutOverlay.setAttribute('aria-hidden','true');
+    const card = aboutOverlay.querySelector('.about-card');
+    if(card){ card.style.visibility='hidden'; card.style.top=''; card.style.left=''; }
+  }
+      aboutToggle?.addEventListener('click', (e)=>{ e.stopPropagation(); toggleAbout(); });
+  aboutClose?.addEventListener('click', closeAbout);
+      aboutOverlay?.addEventListener('click', (e)=>{ if(e.target===aboutOverlay){ closeAbout(); } });
+  // Cerrar al hacer click en cualquier lugar fuera de la tarjeta (mouse o touch)
+  document.addEventListener('pointerdown', (e)=>{
+        if(!aboutOverlay?.classList.contains('open')) return;
+        const card = aboutOverlay.querySelector('.about-card');
+        if(card && !card.contains(e.target) && e.target !== aboutToggle){ closeAbout(); }
+      }, true);
+
+      buildDots();
+      update();
+
+      // Swipe táctil y tilt
+      const viewport = deck.querySelector('.deck-viewport');
+      let sx=null, sy=null;
+      viewport.addEventListener('touchstart', e=>{ const t=e.touches[0]; sx=t.clientX; sy=t.clientY; }, {passive:true});
+      viewport.addEventListener('touchmove', e=>{
+        if(sx==null||sy==null) return;
+        const t=e.touches[0], dx=t.clientX-sx, dy=t.clientY-sy;
+        if(Math.abs(dx)>Math.abs(dy) && Math.abs(dx)>40){
+          (dx<0?goNext:goPrev)(); sx=sy=null;
+        }
+      }, {passive:true});
+      // Tilt mouse
+      const MAX_TILT = 10;
+      function handleTilt(ev){
+        const active = slides[index];
+        const targets = active?.querySelectorAll('.tilt');
+        if(!targets || !targets.length) return;
+        const rect = viewport.getBoundingClientRect();
+        const cx = (ev.clientX - rect.left) / rect.width - 0.5;
+        const cy = (ev.clientY - rect.top) / rect.height - 0.5;
+        const rx = (+cy) * MAX_TILT;
+        const ry = (-cx) * MAX_TILT;
+        targets.forEach(el=>{ el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg)`; });
+      }
+      function resetTilt(){ const active = slides[index]; active?.querySelectorAll('.tilt')?.forEach(el=>{ el.style.transform=''; }); }
+      viewport.addEventListener('mousemove', handleTilt);
+      viewport.addEventListener('mouseleave', resetTilt);
+      window.addEventListener('keydown', e=>{
+        if(e.key==='ArrowRight') goNext();
+        if(e.key==='ArrowLeft') goPrev();
+        if(e.code==='Space'){ e.preventDefault(); toggleAutoplay(); }
+  if(e.key==='Escape'){ closeAbout(); }
+      });
+
+      // Footer acciones + año dinámico
+  const goFirst = document.getElementById('goFirst');
+  const goLast = document.getElementById('goLast');
+  const printBtn = document.getElementById('printBtn');
+  const toTopLink = document.getElementById('toTopLink');
+  const yearEl = document.getElementById('year');
+  if(yearEl) yearEl.textContent = String(new Date().getFullYear());
+  goFirst?.addEventListener('click', ()=>{ index=0; update(); window.scrollTo({top:0, behavior:'smooth'}); });
+  goLast?.addEventListener('click', ()=>{ index=slides.length-1; update(); window.scrollTo({top:0, behavior:'smooth'}); });
+  printBtn?.addEventListener('click', ()=>{ window.print(); });
+  toTopLink?.addEventListener('click', (e)=>{ e.preventDefault(); window.scrollTo({top:0, behavior:'smooth'}); });
+
+      // Ajustar espacio reservado según altura real del footer
+      const footer = document.querySelector('footer');
+      const footerToggle = document.getElementById('footerToggle');
+      function adjustFooterSafe(){
+        if(!footer) return;
+        const h = footer.getBoundingClientRect().height;
+        const extra = window.matchMedia('(max-width: 900px)').matches ? 8 : 4;
+        document.documentElement.style.setProperty('--footer-safe', Math.max(36, h+extra)+"px");
+      }
+      adjustFooterSafe();
+      window.addEventListener('resize', adjustFooterSafe);
+
+      // Toggle del footer en móvil/tablet
+      footerToggle?.addEventListener('click', ()=>{
+        document.body.classList.toggle('footer-open');
+        // breve timeout para esperar la transición y medir el alto real
+        setTimeout(adjustFooterSafe, 320);
+        // Cambiar etiqueta del botón
+        const open = document.body.classList.contains('footer-open');
+        footerToggle.textContent = open ? '▼ Ocultar' : '▲ Footer';
+      });
+    });
+  </script>
+</body>
+</html>
