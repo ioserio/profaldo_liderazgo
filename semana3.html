@@ -77,7 +77,7 @@
       font-size: 1.55rem; margin: 0; font-weight: 800; letter-spacing: .5px;
       background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    main { flex: 1; width: 100%; max-width: 1400px; margin: 28px auto 70px; display: grid; grid-template-columns: 260px 1fr; gap: 34px; padding: 0 32px; }
+  main { flex: 1; width: 100%; max-width: 1400px; margin: 28px auto 70px; display: grid; grid-template-columns: 260px 1fr; gap: 34px; padding: 0 32px; }
     @media (max-width: 1100px) { main { grid-template-columns: 1fr; padding: 0 20px; } }
     .layout-col { min-width: 0; }
     aside.toc {
@@ -118,11 +118,24 @@
     .q-item.open .toggle-icon { transform: rotate(180deg); }
     .answer { padding: 0 54px 22px 68px; font-size: .92rem; line-height: 1.55; color: var(--ink2); display: none; animation: fadeSlide .35s ease; }
     .q-item.open .answer { display: block; }
+  /* Imagen opcional por pregunta */
+  .answer-media { margin-top: 12px; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-sm); }
+  .answer-media img { width: 100%; height: auto; display: block; }
     @keyframes fadeSlide { from { opacity: 0; transform: translateY(-4px) } to { opacity: 1; transform: translateY(0) } }
     mark { background: linear-gradient(90deg, #fde68a, #fcd34d); color: #1e293b; padding: 0 2px; border-radius: 3px; } body.theme-dark mark { background: linear-gradient(90deg, #fbbf24, #f59e0b); color: #0f172a; }
     .empty { border: 2px dashed var(--border); padding: 40px 30px; border-radius: 20px; text-align: center; font-size: .9rem; color: var(--ink2); display: none; }
     .footer-actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
     footer { margin-top: auto; text-align: center; padding: 30px 12px 40px; font-size: .7rem; color: var(--ink2); }
+    /* Footer simple styles */
+    .footer-banner{max-width:1200px;margin:0 auto 8px;border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow-sm);} 
+    .footer-banner img{width:100%;height:auto;display:block;} 
+    .footer-social{text-align:center;margin:6px 0;} 
+    footer a{margin:0 8px;color:var(--ink);text-decoration:none;transition:transform .2s,color .2s;} 
+    footer a:hover{transform:scale(1.06);} 
+    footer img{width:20px;vertical-align:middle;filter:drop-shadow(0 0 2px rgba(44,62,80,.2));transition:filter .2s,transform .2s;} 
+    body.theme-dark footer img{filter:invert(1) brightness(1.15) drop-shadow(0 0 2px rgba(255,255,255,.12));} 
+    .footer-quote{text-align:center;font-size:.85rem;color:var(--ink2);opacity:.95;padding:0 10px;margin:6px 0 6px;font-style:italic;} 
+    .footer-bottom{text-align:center;font-size:.8rem;opacity:.9;padding:0;}
     .floating-top { position: fixed; right: 18px; bottom: 18px; width: 46px; height: 46px; border-radius: 14px; background: var(--grad-accent); color: #fff; font-weight: 700; font-size: 1rem; display: grid; place-items: center; border: none; cursor: pointer; box-shadow: var(--shadow-md); z-index: 90; opacity: 0; pointer-events: none; transition: .3s; }
     .floating-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
     .density-compact .answer { font-size: .84rem; line-height: 1.45; }
@@ -169,7 +182,21 @@
     </div>
   </main>
   <button class="floating-top" id="floatingTop" aria-label="Volver arriba">↑</button>
-  <footer>&copy; <span id="year"></span> RIKFLEX – Semana 3</footer>
+  <footer>
+    <div class="footer-social">
+      <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"/>
+      </a>
+      <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"/>
+      </a>
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"/>
+      </a>
+    </div>
+  <div class="footer-quote">Pequeños actos crean grandes cambios.</div>
+    <div class="footer-bottom">&copy; <span id="year"></span> Derechos reservados</div>
+  </footer>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     (function(){
@@ -190,19 +217,19 @@
     })();
     (() => {
       const DATA = [
-        {q:'¿Qué papel juegan la misión y la visión en el desarrollo personal y profesional?',a:'La misión y visión orientan el rumbo de la persona en lo personal y profesional. Permiten tener claridad de propósito y dirección. Además, fortalecen la motivación para alcanzar metas.'},
-        {q:'Explica brevemente la teoría de la autorrealización de Maslow y su relación con la misión personal.',a:'Maslow plantea que la autorrealización es la cima de las necesidades humanas. Relaciona la misión personal porque impulsa al individuo a desarrollar su máximo potencial. Así, la misión actúa como guía hacia ese crecimiento.'},
-        {q:'Según Viktor Frankl, ¿cuál es la principal fuerza motivadora del ser humano?',a:'Según Viktor Frankl, la principal fuerza motivadora del ser humano es la búsqueda de sentido en la vida. Esto da energía para enfrentar dificultades. Sin sentido, la existencia pierde dirección.'},
-        {q:'¿Cómo contribuye la mentalidad de crecimiento de Carol Dweck al logro de una visión personal?',a:'La mentalidad de crecimiento permite creer que las capacidades pueden desarrollarse. Carol Dweck sostiene que esto impulsa la superación constante. Así se fortalece la visión personal.'},
-        {q:'Menciona dos beneficios comprobados de tener una misión y visión claras en la vida.',a:'Uno es mayor resiliencia ante los obstáculos al tener claridad de rumbo. Otro es el incremento de la motivación para cumplir objetivos. Ambos impactan de manera positiva en la vida.'},
-        {q:'Define qué es una misión personal y qué función cumple.',a:'La misión personal es una declaración de propósito vital. Su función es dar sentido a las decisiones y acciones. Actúa como brújula en el desarrollo integral de la persona.'},
-        {q:'¿Qué representa la visión personal y cómo inspira a superar obstáculos?',a:'La visión personal es la imagen futura de lo que se desea lograr. Inspira a superar obstáculos porque da esperanza y dirección. Sirve como motivación constante en el camino.'},
-        {q:'¿Qué es un proyecto de vida y qué beneficios aporta?',a:'El proyecto de vida es un plan organizado de metas y acciones. Aporta beneficios como claridad en las decisiones y mayor motivación. También ayuda a enfrentar adversidades con propósito.'},
-        {q:'¿Cuáles son los tres tipos de metas en un proyecto de vida? Da un ejemplo de cada una.',a:'Existen metas a corto plazo, como aprobar un curso. A mediano plazo, como culminar una carrera. Y a largo plazo, como formar una empresa propia. Todas se integran en el proyecto de vida.'},
-        {q:'Explica qué significa establecer metas SMART y menciona sus cinco características.',a:'SMART significa que las metas sean Específicas, Medibles, Alcanzables, Relevantes y Temporales. Estas características permiten que los objetivos sean claros y realistas. Garantizan efectividad en su cumplimiento.'},
-        {q:'¿Qué es el liderazgo coach y cómo acompaña el desarrollo personal?',a:'El liderazgo coach es un estilo basado en acompañar y guiar a las personas. Impulsa el desarrollo personal a través de la motivación y retroalimentación. Fomenta el crecimiento integral del individuo.'},
-        {q:'¿Qué etapas incluye un plan de acción personal para un proyecto de vida?',a:'Un plan de acción incluye diagnóstico, definición de objetivos y metas. También contempla estrategias, cronograma y evaluación de resultados. Estas etapas garantizan orden en el proyecto de vida.'},
-        {q:'¿Por qué se afirma que la misión y la visión son el motor de la vida?',a:'Se afirma esto porque la misión y visión dan dirección y sentido a la vida. Funcionan como motor que impulsa a actuar con propósito. Sin ellas, el rumbo personal se vuelve incierto.'}
+        {q:'¿Qué papel juegan la misión y la visión en el desarrollo personal y profesional?',a:'La misión y visión orientan el rumbo de la persona en lo personal y profesional. Permiten tener claridad de propósito y dirección. Además, fortalecen la motivación para alcanzar metas.', img:'https://source.unsplash.com/800x400/?compass,goal', alt:'Brújula y metas'},
+        {q:'Explica brevemente la teoría de la autorrealización de Maslow y su relación con la misión personal.',a:'Maslow plantea que la autorrealización es la cima de las necesidades humanas. Relaciona la misión personal porque impulsa al individuo a desarrollar su máximo potencial. Así, la misión actúa como guía hacia ese crecimiento.', img:'https://upload.wikimedia.org/wikipedia/commons/6/60/MaslowsHierarchyOfNeeds.svg', alt:'Pirámide de Maslow'},
+        {q:'Según Viktor Frankl, ¿cuál es la principal fuerza motivadora del ser humano?',a:'Según Viktor Frankl, la principal fuerza motivadora del ser humano es la búsqueda de sentido en la vida. Esto da energía para enfrentar dificultades. Sin sentido, la existencia pierde dirección.', img:'https://source.unsplash.com/800x400/?meaning,journey', alt:'Camino con sentido'},
+        {q:'¿Cómo contribuye la mentalidad de crecimiento de Carol Dweck al logro de una visión personal?',a:'La mentalidad de crecimiento permite creer que las capacidades pueden desarrollarse. Carol Dweck sostiene que esto impulsa la superación constante. Así se fortalece la visión personal.', img:'https://source.unsplash.com/800x400/?growth,mindset', alt:'Crecimiento y aprendizaje'},
+        {q:'Menciona dos beneficios comprobados de tener una misión y visión claras en la vida.',a:'Uno es mayor resiliencia ante los obstáculos al tener claridad de rumbo. Otro es el incremento de la motivación para cumplir objetivos. Ambos impactan de manera positiva en la vida.', img:'https://source.unsplash.com/800x400/?motivation,resilience', alt:'Motivación y resiliencia'},
+        {q:'Define qué es una misión personal y qué función cumple.',a:'La misión personal es una declaración de propósito vital. Su función es dar sentido a las decisiones y acciones. Actúa como brújula en el desarrollo integral de la persona.', img:'https://source.unsplash.com/800x400/?purpose,compass', alt:'Propósito y brújula'},
+        {q:'¿Qué representa la visión personal y cómo inspira a superar obstáculos?',a:'La visión personal es la imagen futura de lo que se desea lograr. Inspira a superar obstáculos porque da esperanza y dirección. Sirve como motivación constante en el camino.', img:'https://source.unsplash.com/800x400/?vision,horizon', alt:'Visión hacia el horizonte'},
+        {q:'¿Qué es un proyecto de vida y qué beneficios aporta?',a:'El proyecto de vida es un plan organizado de metas y acciones. Aporta beneficios como claridad en las decisiones y mayor motivación. También ayuda a enfrentar adversidades con propósito.', img:'https://source.unsplash.com/800x400/?roadmap,planning', alt:'Hoja de ruta y planificación'},
+        {q:'¿Cuáles son los tres tipos de metas en un proyecto de vida? Da un ejemplo de cada una.',a:'Existen metas a corto plazo, como aprobar un curso. A mediano plazo, como culminar una carrera. Y a largo plazo, como formar una empresa propia. Todas se integran en el proyecto de vida.', img:'https://source.unsplash.com/800x400/?target,steps', alt:'Objetivo y pasos'},
+        {q:'Explica qué significa establecer metas SMART y menciona sus cinco características.',a:'SMART significa que las metas sean Específicas, Medibles, Alcanzables, Relevantes y Temporales. Estas características permiten que los objetivos sean claros y realistas. Garantizan efectividad en su cumplimiento.', img:'https://source.unsplash.com/800x400/?checklist,goals', alt:'Checklist de metas'},
+        {q:'¿Qué es el liderazgo coach y cómo acompaña el desarrollo personal?',a:'El liderazgo coach es un estilo basado en acompañar y guiar a las personas. Impulsa el desarrollo personal a través de la motivación y retroalimentación. Fomenta el crecimiento integral del individuo.', img:'https://source.unsplash.com/800x400/?coaching,leader', alt:'Sesión de coaching'},
+        {q:'¿Qué etapas incluye un plan de acción personal para un proyecto de vida?',a:'Un plan de acción incluye diagnóstico, definición de objetivos y metas. También contempla estrategias, cronograma y evaluación de resultados. Estas etapas garantizan orden en el proyecto de vida.', img:'https://source.unsplash.com/800x400/?plan,action', alt:'Plan de acción'},
+        {q:'¿Por qué se afirma que la misión y la visión son el motor de la vida?',a:'Se afirma esto porque la misión y visión dan dirección y sentido a la vida. Funcionan como motor que impulsa a actuar con propósito. Sin ellas, el rumbo personal se vuelve incierto.', img:'https://source.unsplash.com/800x400/?inspiration,focus', alt:'Inspiración y enfoque'}
       ];
       const questionList = document.getElementById('questionList');
       const tocNav = document.getElementById('tocNav');
@@ -225,7 +252,11 @@
               <h3>${item.q}</h3>
               <span class="toggle-icon">▼</span>
             </button>
-            <div class="answer" id="ans${i}" hidden>${item.a}</div>
+            <div class="answer" id="ans${i}" hidden>
+              ${item.a}
+              ${item.img ? `<figure class='answer-media'><img src='${item.img}' alt='${item.alt || `Ilustración de la pregunta ${i+1}`} ' loading='lazy' decoding='async' onerror="this.closest('figure')?.remove()">` : ''}
+              ${item.img ? `</figure>` : ''}
+            </div>
           `;
           questionList.appendChild(qItem);
           // TOC
@@ -296,6 +327,7 @@
         floatingTop.classList.toggle('visible', window.scrollY > 300);
       });
       floatingTop.onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+      // Footer minimal: no toggle, actions desde botones superiores
     })();
   </script>
 </body>
