@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Portafolio - Ricardo Merino (Átomo de skills)</title>
+<style>
+  /* Icono hombre incógnito avatar contacto hover */
+    .incognito-avatar:hover svg ellipse,
+    .incognito-avatar:hover svg rect,
+    .incognito-avatar:hover svg circle {
+      fill: #00bcd4 !important;
+      transition: fill 0.3s;
+    }
+    .incognito-avatar:hover svg ellipse[fill="#fff"] {
+      fill: #fff !important;
+    }
+  footer a img {
+    filter: grayscale(1) brightness(0.7);
+    transition: filter 0.3s, box-shadow 0.3s;
+  }
+  footer a:hover img, footer a:active img {
+    filter: none;
+    box-shadow: 0 0 12px #00bcd4, 0 0 4px #fff;
+  }
+  /* Animación de ingreso para los iconos de habilidades */
+  .skills-icons > div {
+    opacity: 0;
+    transform: scale(0.7) translateY(30px);
+    animation: skillFadeIn 0.7s cubic-bezier(.5,1.5,.5,1) forwards;
+  }
+  .skills-icons > div:nth-child(1) { animation-delay: 0.1s; }
+  .skills-icons > div:nth-child(2) { animation-delay: 0.2s; }
+  .skills-icons > div:nth-child(3) { animation-delay: 0.3s; }
+  .skills-icons > div:nth-child(4) { animation-delay: 0.4s; }
+  .skills-icons > div:nth-child(5) { animation-delay: 0.5s; }
+  .skills-icons > div:nth-child(6) { animation-delay: 0.6s; }
+  .skills-icons > div:nth-child(7) { animation-delay: 0.7s; }
+  .skills-icons > div:nth-child(8) { animation-delay: 0.8s; }
+  .skills-icons > div:nth-child(9) { animation-delay: 0.9s; }
+  .skills-icons > div:nth-child(10) { animation-delay: 1s; }
+  @keyframes skillFadeIn {
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  /* ===== RESET ===== */
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: "Poppins", sans-serif; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: linear-gradient(135deg,#0d1117,#1f2937);
+    color: #fff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* ===== HEADER (FULLSCREEN) ===== */
+  header {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6vh 6vw;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+  }
+
+  .hero {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  /* ===== LEFT: ATOMO (FOTO + ORBITAS) ===== */
+  .atom {
+    position: relative;
+    width: 420px;
+    height: 420px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin: 0 auto;
+  }
+
+  /* contenedor central de la foto */
+  .profile-wrap {
+  width: 240px;
+  height: 240px;
+    border-radius: 50%;
+    border: 4px solid rgba(0,188,212,0.9);
+    overflow: hidden;
+    box-shadow: 0 6px 30px rgba(0,188,212,0.12);
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    transition: transform .35s ease, box-shadow .35s ease;
+    background: linear-gradient(180deg,#111,#000);
+  }
+  .profile-wrap:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,188,212,0.2); }
+
+  .profile-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* archivo invisible para reemplazar la foto */
+  #fileInput { display:none; }
+
+  /* ORBITAS (cada órbita es un contenedor que rota) */
+  .orbit {
+    position: absolute;
+    inset: 0;
+    display: block;
+    transform-origin: center;
+    pointer-events: none; /* dejar que el clic pase al centro */
+  }
+
+  /* animaciones de giro - distintas velocidades/direcciones */
+  .orbit.orbit-1 { animation: spin 14s linear infinite; }
+  .orbit.orbit-2 { animation: spin 10s linear infinite reverse; }
+  .orbit.orbit-3 { animation: spin 18s linear infinite; }
+
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* ICONOS: se colocan con transform rotate(angle) translateX(radius) */
+  .orbit .icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: 0 0;
+    pointer-events: auto;
+    transition: transform .2s ease;
+  }
+
+  /* hacemos que el icon se contrarrote para permanecer 'derecho' */
+  .orbit .icon img {
+    width: 46px;
+    height: 46px;
+    display: block;
+    transform-origin: center;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.02);
+    padding: 6px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+  }
+
+  /* Al pasar por encima de un icono lo destacamos */
+  .orbit .icon img:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 30px rgba(0,188,212,0.25);
+  }
+
+  /* definimos posiciones mediante variables CSS (ángulo y radio) */
+  .icon { --angle:0deg; --radius:140px; transform: rotate(var(--angle)) translateX(var(--radius)) rotate(calc(-1 * var(--angle))); }
+
+  /* personalizar radios por órbita */
+  .orbit-1 .icon { --radius: 120px; }
+  .orbit-2 .icon { --radius: 180px; }
+  .orbit-3 .icon { --radius: 240px; }
+
+  /* reducir en pantallas pequeñas */
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; gap: 30px; }
+    .atom { width: 360px; height: 360px; }
+  .profile-wrap { width: 200px; height: 200px; }
+    .orbit-3 { display:none; } /* esconder órbita más externa en pantallas pequeñas */
+  }
+  @media (max-width: 520px) {
+    header { padding: 5vh 4vw; }
+    .atom { width: 280px; height: 280px; }
+  .profile-wrap { width: 150px; height: 150px; }
+    .orbit-2 { display:none; }
+  }
+
+  /* ===== RIGHT: TEXTOS Y BOTONES ===== */
+  .hero-content {
+    text-align: left;
+    padding: 10px 0;
+  }
+
+  .intro-text {
+    font-size: 2.1rem;
+    line-height: 1.05;
+    font-weight: 700;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 700ms ease forwards 300ms;
+  }
+  .subtext {
+    color: #cdd6db;
+    margin-top: 12px;
+    font-size: 1.05rem;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 700ms ease forwards 650ms;
+  }
+
+  .cta-row {
+    margin-top: 22px;
+    display:flex;
+    gap: 16px;
+    align-items:center;
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 700ms ease forwards 1000ms;
+  }
+  .btn {
+  background: linear-gradient(90deg,#00bcd4,#03e9f4);
+  color: #062024;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 28px rgba(3,233,244,0.12);
+  border: none;
+  transition: transform .2s ease;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  min-width: 120px;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.btn.btn-outline {
+  background: transparent;
+  color: #00bcd4;
+  border: 2px solid #00bcd4;
+  box-shadow: none;
+}
+.btn.btn-outline:hover {
+  background: linear-gradient(90deg,#00bcd4,#03e9f4);
+  color: #062024;
+  border: 2px solid #00bcd4;
+  box-shadow: 0 8px 28px rgba(3,233,244,0.12);
+}
+  
+  .btn:hover { transform: translateY(-4px); }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  /* ===== SECCIONES ABAJO (SOBRE, HABILIDADES, PROYECTOS) ===== */
+  main { padding-bottom: 60px; }
+  section { padding: 60px 8vw; max-width:1200px; margin: 0 auto; opacity: 0; transform: translateY(30px); transition: .7s; }
+  section.show { opacity: 1; transform: translateY(0); }
+  section h2 { color:#00bcd4; margin-bottom: 14px; font-size: 1.15rem; letter-spacing: 1px; text-transform: uppercase; }
+  .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:18px; margin-top:14px; }
+  .pill { background:#0f1720; padding:12px;border-radius:10px; text-align:center; box-shadow: 0 6px 20px rgba(0,0,0,0.45); }
+
+  footer { text-align:center; color:#9aa7b1; padding:30px 0 60px; font-size: .95rem; }
+
+</style>
+</head>
+<body>
+  <a href="../index.html" title="Volver al inicio" style="position:fixed;top:12px;right:12px;z-index:9999;padding:0;display:inline-block;border-radius:50%;background:none;box-shadow:none;">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;">
+      <path d="M3 11.5L12 4L21 11.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5 10V20H19V10" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+<header>
+  <div class="hero">
+    <!-- IZQUIERDA: ÁTOMO -->
+    <div class="atom" aria-hidden="false">
+      <!-- ÓRBITA 3 (externa) -->
+      <div class="orbit orbit-3" aria-hidden="true">
+        <!-- coloca aquí tantos .icon como quieras; cambia --angle en línea -->
+        <div class="icon" style="--angle: 0deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
+        <div class="icon" style="--angle: 60deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"></div>
+        <div class="icon" style="--angle: 120deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"></div>
+        <div class="icon" style="--angle: 180deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP"></div>
+        <div class="icon" style="--angle: 240deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++"></div>
+        <div class="icon" style="--angle: 300deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5"></div>
+      </div>
+
+      <!-- ÓRBITA 2 (media) -->
+      <div class="orbit orbit-2" aria-hidden="true">
+        <div class="icon" style="--angle: 15deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3"></div>
+        <div class="icon" style="--angle: 95deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"></div>
+        <div class="icon" style="--angle: 175deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js"></div>
+        <div class="icon" style="--angle: 255deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL"></div>
+      </div>
+
+      <!-- ÓRBITA 1 (interna) -->
+      <div class="orbit orbit-1" aria-hidden="true">
+        <div class="icon" style="--angle: -20deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git"></div>
+        <div class="icon" style="--angle: 40deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"></div>
+        <div class="icon" style="--angle: 100deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg" alt="VSCode"></div>
+        <div class="icon" style="--angle: 220deg;"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux"></div>
+      </div>
+
+      <!-- CENTRO: FOTO (click para editar) -->
+      <label class="profile-wrap" title="Haz clic para cambiar la foto" for="fileInput" aria-label="Cambiar foto de perfil">
+        <img id="profileImg" src="img/Perfil.jpeg" alt="Tu foto de perfil">
+      </label>
+      <input id="fileInput" type="file" accept="image/*">
+    </div>
+
+    <!-- DERECHA: TEXTOS -->
+    <div class="hero-content">
+  <div class="intro-text">Hola, soy&nbsp;<span style="color:#fff">Ricardo Merino</span></div>
+      <div class="subtext">Desarrollador Full Stack — Creo interfaces limpias, aplicaciones confiables y experiencias memorables</div>
+
+      <div class="cta-row">
+  <a class="btn" href="#projects">Ver proyectos</a>
+  <a class="btn btn-outline" href="#contact">Contáctame</a>
+  <a class="btn btn-outline" id="cvBtn" href="javascript:void(0)">CV</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="about">
+  <h2>Sobre mí</h2>
+    Me apasiona la tecnología y disfruto asumir retos que impulsen mi crecimiento profesional. Valoro el trabajo colaborativo en equipos multidisciplinarios, donde puedo aportar soluciones innovadoras y aprender de otros profesionales. Mi objetivo es seguir perfeccionando mis habilidades y contribuir al desarrollo de productos digitales que generen un impacto positivo y duradero.</p>
+    <div style="text-align:justify; text-justify:inter-word;">
+      <p>Soy un desarrollador con amplia experiencia en aplicaciones web, integraciones backend y diseño de interfaces de usuario. Me distingo por escribir código limpio, optimizar el rendimiento y mantenerme en constante actualización con las nuevas tecnologías. He participado en proyectos que van desde la creación de interfaces modernas hasta la implementación de sistemas escalables, seguros y de alto desempeño, siempre enfocado en brindar la mejor experiencia al usuario final.
+      Me apasiona la tecnología y disfruto asumir retos que impulsen mi crecimiento profesional. Valoro el trabajo colaborativo en equipos multidisciplinarios, donde puedo aportar soluciones innovadoras y aprender de otros profesionales. Mi objetivo es seguir perfeccionando mis habilidades y contribuir al desarrollo de productos digitales que generen un impacto positivo y duradero.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Habilidades</h2>
+    <div class="skills-icons" style="display: flex; flex-wrap: wrap; gap: 28px; justify-content: center; align-items: center; margin-top: 24px;">
+      <div title="HTML" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" style="width: 48px; height: 48px;">
+      </div>
+      <div title="CSS" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" style="width: 48px; height: 48px;">
+      </div>
+      <div title="JavaScript" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" style="width: 48px; height: 48px;">
+      </div>
+      <div title="PHP" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" style="width: 48px; height: 48px;">
+      </div>
+      <div title="Python" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" style="width: 48px; height: 48px;">
+      </div>
+      <div title="C#" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" style="width: 48px; height: 48px;">
+      </div>
+      <div title="MySQL" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" style="width: 48px; height: 48px;">
+      </div>
+      <div title="GitHub" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" style="width: 48px; height: 48px; filter: invert(0.8);">
+      </div>
+      <div title="Java" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" style="width: 48px; height: 48px;">
+      </div>
+      <div title="Golang" style="background: #212936; border-radius: 50%; padding: 18px; box-shadow: 0 4px 18px #00bcd440; display: flex; align-items: center; justify-content: center;">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="Golang" style="width: 48px; height: 48px;">
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Proyectos</h2>
+  <div class="grid" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(308px,1fr)); gap:39px; margin-top:24px;">
+      <!-- Proyecto 1 -->
+  <div class="project-card" style="background:#212936; border-radius:18px; box-shadow:0 4px 24px #00bcd420; padding:25px; display:flex; flex-direction:column; align-items:center; gap:20px;">
+        <a href="https://riknet.kesug.com/boutique/index.html?i=3" target="_blank" style="border-radius:12px; overflow:hidden; display:block;">
+          <img src="img/1.png" alt="Pagina de Boutique" style="width:100%; max-width:252px; height:auto; border-radius:12px; box-shadow:0 2px 12px #00bcd420; transition:transform 0.2s; cursor:pointer;">
+        </a>
+        <div style="font-weight:600; color:#00bcd4; font-size:1.08rem; text-align:center;">Página de Boutique</div>
+      </div>
+      <!-- Proyecto 2 -->
+      <div class="project-card" style="background:#212936; border-radius:18px; box-shadow:0 4px 24px #00bcd420; padding:18px; display:flex; flex-direction:column; align-items:center; gap:14px;">
+        <a href="https://riknet.kesug.com/punto_venta/inicio.html" target="_blank" style="border-radius:12px; overflow:hidden; display:block;">
+          <img src="img/2.png" alt="Sistema Web de facturación" style="width:100%; max-width:252px; height:auto; border-radius:12px; box-shadow:0 2px 12px #00bcd420; transition:transform 0.2s; cursor:pointer;">
+        </a>
+        <div style="font-weight:600; color:#00bcd4; font-size:1.08rem; text-align:center;">Sistema Web de facturación</div>
+      </div>
+      <!-- Proyecto 3 -->
+      <div class="project-card" style="background:#212936; border-radius:18px; box-shadow:0 4px 24px #00bcd420; padding:18px; display:flex; flex-direction:column; align-items:center; gap:14px;">
+        <a href="https://riknet.kesug.com/tienda/index.php" target="_blank" style="border-radius:12px; overflow:hidden; display:block;">
+          <img src="img/3.png" alt="Venta Online" style="width:100%; max-width:252px; height:auto; border-radius:12px; box-shadow:0 2px 12px #00bcd420; transition:transform 0.2s; cursor:pointer;">
+        </a>
+        <div style="font-weight:600; color:#00bcd4; font-size:1.08rem; text-align:center;">Venta Online</div>
+      </div>
+      <!-- Proyecto 4 -->
+      <div class="project-card" style="background:#212936; border-radius:18px; box-shadow:0 4px 24px #00bcd420; padding:18px; display:flex; flex-direction:column; align-items:center; gap:14px;">
+        <a href="https://riknet.kesug.com/Consulta_Cliente/home.html" target="_blank" style="border-radius:12px; overflow:hidden; display:block;">
+          <img src="img/4.png" alt="Web Consulta direcciones" style="width:100%; max-width:252px; height:auto; border-radius:12px; box-shadow:0 2px 12px #00bcd420; transition:transform 0.2s; cursor:pointer;">
+        </a>
+        <div style="font-weight:600; color:#00bcd4; font-size:1.08rem; text-align:center;">Web Consulta direcciones</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contacto</h2>
+    <div style="display:flex; flex-direction:column; gap:22px; align-items:center; max-width:420px; margin:18px auto; background:rgba(33,41,54,0.7); border-radius:18px; box-shadow:0 4px 24px #00bcd420; padding:32px 0;">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+        <span style="display:inline-block; width:80px; height:80px; border-radius:50%; background:#f5f7fa; box-shadow:0 2px 12px #00bcd420; margin-bottom:8px; position:relative; overflow:hidden;">
+    <span class="incognito-avatar" style="display:inline-block; width:80px; height:80px; border-radius:50%; background:#f5f7fa; box-shadow:0 2px 12px #00bcd420; margin-bottom:8px; position:relative; overflow:hidden; cursor:pointer;">
+          <svg viewBox="0 0 80 80" width="72" height="72" style="position:absolute; top:4px; left:4px;" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="36" fill="#f5f7fa"/>
+            <ellipse cx="40" cy="50" rx="18" ry="14" fill="#212936"/>
+            <rect x="22" y="32" width="36" height="12" rx="6" fill="#212936"/>
+            <rect x="28" y="24" width="24" height="12" rx="6" fill="#212936"/>
+            <ellipse cx="32" cy="54" rx="5" ry="5" fill="#fff" stroke="#212936" stroke-width="2"/>
+            <ellipse cx="48" cy="54" rx="5" ry="5" fill="#fff" stroke="#212936" stroke-width="2"/>
+            <rect x="34" y="58" width="12" height="3" rx="1.5" fill="#212936"/>
+          </svg>
+        </span>
+        <div style="color:#cdd6db; font-size:1.08rem; text-align:center; margin-bottom:6px;">¿Quieres trabajar conmigo o tienes alguna consulta?<br><span style='color:#00bcd4; font-weight:600;'>¡Contáctame!</span></div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px; align-items:flex-start; width:100%;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="display:inline-block; width:24px; height:24px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00bcd4" width="24" height="24"><path d="M2 4a2 2 0 012-2h16a2 2 0 012 2v16a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm2 0v.217l8 5.333 8-5.333V4H4zm16 2.383l-7.555 5.04a2 2 0 01-2.89 0L4 6.383V20h16V6.383z"/></svg>
+          </span>
+          <a href="mailto:rmerino857@gmail.com" style="color:#00bcd4; font-weight:600; background:#212936; padding:6px 14px; border-radius:8px; text-decoration:none; box-shadow:0 2px 10px #00bcd420;">rmerino857@gmail.com</a>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px; color:#cdd6db; font-size:1.08rem;">
+          <span style="display:inline-block; width:22px; height:22px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#00bcd4" width="22" height="22"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.21.49 2.53.76 3.88.76a1 1 0 011 1V20a1 1 0 01-1 1C10.07 21 3 13.93 3 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.35.27 2.67.76 3.88a1 1 0 01-.21 1.11l-2.2 2.2z"/></svg>
+          </span>
+          <span style="color:#00bcd4; font-weight:600;">923486317</span>
+        </div>
+      </div>
+      <div style="display:flex; gap:18px; justify-content:center; margin-top:18px;">
+        <a href="https://github.com/ioserio" target="_blank" style="display:inline-block; width:38px; height:38px; background:#212936; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px #00bcd420; transition:transform 0.2s;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#00bcd4" viewBox="0 0 24 24" width="24" height="24"><path d="M12 2C6.477 2 2 6.484 2 12.012c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.483 0-.237-.009-.868-.013-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.091-.646.35-1.088.636-1.339-2.221-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.254-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.396.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.847-2.337 4.695-4.566 4.944.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.749 0 .268.18.579.688.481C19.138 20.174 22 16.426 22 12.012 22 6.484 17.523 2 12 2z"/></svg>
+        </a>
+        <a href="https://pe.linkedin.com/in/rene-ricardo-merino-condori-a33b3113b" target="_blank" style="display:inline-block; width:38px; height:38px; background:#212936; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px #00bcd420; transition:transform 0.2s;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#00bcd4" viewBox="0 0 24 24" width="24" height="24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.867-3.063-1.868 0-2.156 1.459-2.156 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.597 2.001 3.597 4.601v5.595z"/></svg>
+        </a>
+        <a href="https://wa.me/51923486317" target="_blank" style="display:inline-block; width:38px; height:38px; background:#212936; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px #00bcd420; transition:transform 0.2s;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="#00bcd4" viewBox="0 0 24 24" width="24" height="24"><path d="M20.52 3.48A11.78 11.78 0 0012 0C5.37 0 0 5.37 0 12a11.78 11.78 0 003.48 8.52L0 24l3.48-1.14A11.78 11.78 0 0012 24c6.63 0 12-5.37 12-12a11.78 11.78 0 00-3.48-8.52zM12 22a9.93 9.93 0 01-5.29-1.53l-.38-.23-2.07.68.68-2.07-.23-.38A9.93 9.93 0 012 12c0-5.52 4.48-10 10-10s10 4.48 10 10-4.48 10-10 10zm5.2-7.6c-.28-.14-1.65-.81-1.9-.9-.25-.09-.43-.14-.61.14-.18.28-.7.9-.86 1.08-.16.18-.32.2-.6.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.18-.29.28-.48.09-.18.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.36-.01-.56-.01-.19 0-.5.07-.76.36-.26.29-1 1-1 2.43s1.03 2.82 1.18 3.02c.15.2 2.03 3.1 4.93 4.23.69.3 1.23.48 1.65.62.69.22 1.32.19 1.82.12.56-.08 1.65-.67 1.88-1.32.23-.65.23-1.21.16-1.32-.07-.11-.25-.18-.53-.32z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+<!-- Modal para mostrar el CV (fuera de los contenedores principales) -->
+<div id="cvModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(13,17,23,0.92); z-index:9999; justify-content:center; align-items:center;">
+  <div style="background:#212936; border-radius:16px; max-width:800px; width:90vw; max-height:90vh; padding:24px; box-shadow:0 8px 40px #00bcd440; position:relative; display:flex; flex-direction:column; align-items:center;">
+    <button id="closeCvModal" style="position:absolute; top:16px; right:16px; background:#00bcd4; color:#212936; border:none; border-radius:50%; width:36px; height:36px; font-size:1.5rem; cursor:pointer;">&times;</button>
+    <h2 style="color:#00bcd4; margin-bottom:18px; font-size:1.2rem;">Currículum Vitae</h2>
+  <iframe src="CV_ACT2025.pdf#toolbar=0" style="width:100%; height:70vh; border-radius:8px; border:none; background:#fff;"></iframe>
+  </div>
+</div>
+
+<footer>
+  <div style="margin-bottom:8px; color:#00bcd4; font-size:1.05rem;">"El éxito es la suma de pequeños esfuerzos repetidos día tras día."</div>
+  <div>© 2025 René Merino — Todos los derechos reservados.</div>
+</footer>
+
+<script>
+// Modal para mostrar el CV en PDF
+const cvBtn = document.getElementById('cvBtn');
+const cvModal = document.getElementById('cvModal');
+const closeCvModal = document.getElementById('closeCvModal');
+cvBtn.onclick = function() {
+  cvModal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+};
+closeCvModal.onclick = function() {
+  cvModal.style.display = 'none';
+  document.body.style.overflow = '';
+};
+window.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    cvModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+/* ========== LOGICA: subir foto (preview) ========== */
+const fileInput = document.getElementById('fileInput');
+const profileImg = document.getElementById('profileImg');
+
+fileInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const url = URL.createObjectURL(file);
+  profileImg.src = url;
+  // nota: si quieres persistir la imagen, tendrías que subirla al servidor
+});
+
+/* ========== MANTENER ICONOS 'DERECHOS' al rotar (no necesario porque lo hacemos con transform) ==========
+   No se necesita JS para la rotación (se usa animation en CSS). Sin embargo, para mejorar accesibilidad:
+   - permitimos pausar la animación al poner el cursor sobre el átomo
+*/
+const atom = document.querySelector('.atom');
+atom.addEventListener('mouseenter', () => {
+  document.querySelectorAll('.orbit').forEach(o => o.style.animationPlayState = 'paused');
+});
+atom.addEventListener('mouseleave', () => {
+  document.querySelectorAll('.orbit').forEach(o => o.style.animationPlayState = 'running');
+});
+
+/* ========== EFECTO TIPO "LETTERS" en el encabezado ========== */
+const intro = document.querySelector('.intro-text');
+const text = intro.textContent.trim();
+intro.textContent = '';
+[...text].forEach((char, i) => {
+  const span = document.createElement('span');
+  span.textContent = char;
+  span.style.display = 'inline-block';
+  span.style.opacity = '0';
+  span.style.transform = 'translateY(8px)';
+  span.style.transition = 'opacity .35s ease, transform .35s ease';
+  intro.appendChild(span);
+  setTimeout(() => {
+    span.style.opacity = '1';
+    span.style.transform = 'translateY(0)';
+  }, 60 * i);
+});
+
+/* ========== REVEAL SECCIONES AL SCROLL ========== */
+const sections = document.querySelectorAll('main section');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('show');
+  });
+}, { threshold: 0.25 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+<script>
+window.onload = function() {
+  window.scrollTo(0, 0);
+  setTimeout(function() {
+    window.scrollTo(0, 0);
+  }, 50);
+};
+</script>
+<script>
+window.onload = function() {
+  window.scrollTo(0, 0);
+};
+</script>
+</body>
+</html>
