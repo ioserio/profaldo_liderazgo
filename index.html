@@ -56,6 +56,23 @@ footer{margin-top:auto; text-align:center; padding:28px 12px 22px; font-size:.75
 .current .badge{background:#38bdf8; color:#fff;}
 /* Responsive fino */
 @media (max-width:600px){ .hero{margin-bottom:32px;} .grid{gap:16px;} }
+
+/* Dark theme overrides for cards */
+body.theme-dark .card{
+  background:linear-gradient(180deg,rgba(30,41,59,.9),rgba(30,41,59,.72));
+  border:1px solid rgba(148,163,184,.35);
+  box-shadow:0 8px 24px -8px rgba(0,0,0,.55),0 2px 4px rgba(0,0,0,.35);
+}
+body.theme-dark .card::before{
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.08),transparent 60%);
+  opacity:.5;
+}
+body.theme-dark .card:hover.card.available{
+  box-shadow:0 14px 32px -10px rgba(0,0,0,.6),0 4px 10px rgba(0,0,0,.45);
+}
+body.theme-dark .card:hover.card.available h3{ color:#ffffff; }
+body.theme-dark .badge{ background:#334155; color:#e2e8f0; }
+body.theme-dark .card.available .badge{ background:#1e3a8a; color:#e0e7ff; }
 </style>
 </head>
 <body>
@@ -91,12 +108,12 @@ footer{margin-top:auto; text-align:center; padding:28px 12px 22px; font-size:.75
   { num:6, title:'Comunicación asertiva y empatía', file:'semana6.html', desc:'Cuestionario sobre comunicación asertiva, empatía y su impacto en el liderazgo y el trabajo en equipo.', available:true },
   { num:7, title:'Entrega de poder y trabajo en equipo', file:'semana7.html', desc:'Cuestionario sobre entrega de poder (empowerment), funcionamiento de grupos de trabajo y condiciones del trabajo en equipo.', available:true },
   { num:8, title:'Etapas en la formación de equipos', file:'semana8.html', desc:'Cuestionario resuelto sobre el modelo de Tuckman (Forming, Storming, Norming, Performing y Adjourning), rol del líder y aplicación práctica.', available:true },
-  { num:9, title:'Semana 9', file:'semana9.html', desc:'Coming soon!', available:false },
-  { num:10, title:'Semana 10', file:'semana10.html', desc:'Coming soon!', available:false },
+  { num:9, title:'Normas Fundamentales en Equipos', file:'semana9.html', desc:'Cuestionario sobre normas de equipo, roles clave (líder, facilitador y miembros), comunicación efectiva y factores de eficacia organizacional según Hackman.', available:true },
+  { num:10, title:'Implicancias del Trabajo en Equipo', file:'semana10.html', desc:'Cuestionario sobre ventajas, desafíos y liderazgo en equipos; delegación, estilos de liderazgo (participativo, transformacional, situacional) e impacto organizacional en productividad, rotación e innovación.', available:true },
   { num:11, title:'Dinámicas de grupos y participación', file:'semana11.html', desc:'Cuestionario sobre dinámicas de grupo, técnicas de interacción, integración y estrategias para fomentar la participación equitativa en equipos.', available:true },
-  { num:12, title:'Semana 12', file:'semana12.html', desc:'Coming soon!', available:false },
+  { num:12, title:'Kaizen y Mejora Continua', file:'semana12.html', desc:'Cuestionario sobre filosofía Kaizen: mejora continua, ciclos PDCA, cultura participativa, rol del líder facilitador, trabajo colaborativo, equipos multidisciplinarios, metodología 5S y eventos Kaizen para eliminar desperdicios.', available:true },
   { num:13, title:'Kaizen y Mejora Continua', file:'semana13.html', desc:'Cuestionario sobre filosofía Kaizen: mejora continua, ciclos PDCA, cultura participativa, rol del líder facilitador, trabajo colaborativo, equipos multidisciplinarios, metodología 5S y eventos Kaizen para eliminar desperdicios.', available:true },
-  { num:14, title:'Semana 14', file:'semana14.html', desc:'Coming soon!', available:false },
+  { num:14, title:'Motivación en el Entorno Grupal e Individual', file:'semana14.html', desc:'Cuestionario sobre motivación en equipos: rol del líder inspirador, conexión emocional, reconocimiento de talentos y propósito personal, autonomía, comunicación y reconocimiento colectivos; además, estrategias motivacionales y prácticas aplicadas por líderes.', available:true },
   { num:15, title:'Semana 15', file:'semana15.html', desc:'Coming soon!', available:false },
   { num:16, title:'Semana 16', file:'semana16.html', desc:'Coming soon!', available:false }
   ];

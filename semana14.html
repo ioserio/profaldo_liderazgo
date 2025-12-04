@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Semana 10 | RIKFLEX</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Semana 14 | RIKFLEX</title>
 	<style>
 		:root {
 			--bg: #eef3f8; --bg2: #f8fafc; --panel: #fff; --ink: #1e293b; --ink2: #475569; --border: #d8e2ec; --accent: #6366f1; --accent2: #38bdf8; --accent3: #34d399; --radius: 18px;
@@ -82,15 +82,16 @@
 		.density-compact .q-header { padding: 14px 16px; }
 		.density-compact .answer { padding: 0 40px 18px 56px; }
 		@media (max-width: 900px) { main { margin-top: 18px; } aside.toc { display: none; } .q-header { padding: 16px 18px; } .answer { padding: 0 30px 20px 66px; } .toolbar { flex-direction: column; align-items: stretch; } .actions { width: 100%; } .actions .btn { flex: 1; } .search-box { width: 100%; } }
-		@media (max-width: 520px) { h1 { font-size: 1.25rem; } .q-header h3 { font-size: .95rem; } .answer { padding: 0 24px 18px 60px; } .num-badge { width: 30px; height: 30px; border-radius: 10px; font-size: .7rem; } .toggle-icon { width: 32px; height: 32px; } .btn { padding: 9px 12px; font-size: .68rem; } .btn-primary { padding: 9px 14px; } }
+		@media (max-width: 520px) { h1 { font-size: 1.25rem; } .q-header h3 { font-size: .95rem; } .answer { padding: 0 24px 18px 60px; } .num-badge { width: 30px; height: 30px; border-radius: 10px; font-size: .7rem; } .toggle-icon { width: 32px; height: 32px; } .btn { padding: 9px 12px; font-size: .68rem; } .btn-primary { padding: 9px 14px; }
+		}
 		@media print { header, .toolbar, .floating-top, aside.toc, .footer-actions, .actions { display: none !important; } body { background: #fff; } main { grid-template-columns: 1fr; padding: 0 10px; margin: 0; } .q-item { border: 1px solid #555; box-shadow: none; } .answer { display: block !important; } footer { padding: 10px 0 0; font-size: .6rem; }
 		}
 	</style>
 </head>
 <body>
 	<header>
-		<h1>Semana 10</h1>
-		<div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:800;letter-spacing:.5px;text-align:center;pointer-events:none;max-width:76%;line-height:1.15;font-size:clamp(1.1rem,3.5vw,1.85rem);background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;color:transparent;">IMPLICANCIAS DEL TRABAJO EN EQUIPO</div>
+		<h1>Semana 14</h1>
+		<div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:800;letter-spacing:.5px;text-align:center;pointer-events:none;max-width:76%;line-height:1.15;font-size:clamp(1.1rem,3.5vw,1.85rem);background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;color:transparent;">MOTIVACIÓN EN EL ENTORNO GRUPAL</div>
 		<div class="header-actions">
 			<a href="index.html" class="home" aria-label="Volver al inicio">🏠</a>
 			<button id="themeToggle" class="btn" aria-pressed="false" title="Cambiar tema">🌗 <span style="opacity:.8;font-weight:500;">Tema</span></button>
@@ -103,7 +104,7 @@
 		</aside>
 		<div class="layout-col">
 			<div class="toolbar" role="region" aria-label="Herramientas del cuestionario">
-				<span class="chip" id="modeChip">Cuestionario Trabajo en Equipo</span>
+				<span class="chip" id="modeChip">Cuestionario Motivación</span>
 				<div class="search-box"><input id="search" type="search" placeholder="Buscar pregunta o respuesta..." aria-label="Buscar" autocomplete="off"/><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
 				<div class="actions" aria-label="Acciones">
 					<button class="btn" id="btnExpandAll" type="button">Expandir todo</button>
@@ -123,119 +124,160 @@
 	</main>
 	<button class="floating-top" id="floatingTop" aria-label="Volver arriba">↑</button>
 	<footer>&copy; <span id="year"></span> RIKFLEX</footer>
+
 	<script>
+		const DATA = [
+			{ section: 'A. Motivación en el Trabajo en Equipo', items: [
+				{ n: 1, q: '¿Por qué la motivación es un elemento vital para transformar equipos ordinarios en equipos extraordinarios?',
+					a: 'Porque la motivación impulsa a los miembros a dar más de lo esperado, aumentando la energía, el compromiso y la disposición para colaborar. Un equipo motivado trabaja con propósito, mejora su desempeño y logra resultados superiores, dejando de ser un grupo común para convertirse en uno de alto rendimiento.',
+					img: 'https://picsum.photos/seed/equipo-extraordinario/900/420', alt: 'Equipo motivado de alto rendimiento' },
+				{ n: 2, q: '¿Cómo influyen los líderes inspiradores en la motivación colectiva dentro de un equipo de trabajo?',
+					a: 'Los líderes inspiradores transmiten visión, confianza y entusiasmo. Esta energía se contagia al equipo, aumenta su cohesión y genera un ambiente positivo donde las personas se sienten valoradas y capaces. Así, la motivación colectiva crece y el equipo trabaja con más compromiso y unidad.',
+					img: 'https://picsum.photos/seed/lider-inspirador/900/420', alt: 'Líder inspirador motivando al equipo' },
+				{ n: 3, q: '¿Qué papel cumple la conexión emocional dentro de un equipo motivado?',
+					a: 'La conexión emocional fortalece la confianza, facilita la comunicación y hace que los miembros se sientan apoyados. Cuando existe vínculo emocional, aumenta la disposición a colaborar, a resolver conflictos y a esforzarse más por el bien del grupo.',
+					img: 'https://picsum.photos/seed/conexion-emocional/900/420', alt: 'Conexión emocional en el equipo' },
+			]},
+
+			{ section: 'B. Motivación Individual', items: [
+				{ n: 4, q: '¿Por qué es importante que un líder reconozca los talentos y pasiones únicas de cada miembro del equipo?',
+					a: 'Porque al identificar los talentos personales, el líder asigna tareas adecuadas, potencia el crecimiento individual y aumenta la satisfacción laboral. Cuando una persona siente que su capacidad es valorada, se motiva más y mejora su rendimiento.',
+					img: 'https://picsum.photos/seed/talentos-personales/900/420', alt: 'Reconocimiento de talentos individuales' },
+				{ n: 5, q: '¿Cómo influye el sentido de propósito personal en el rendimiento individual?',
+					a: 'El propósito personal actúa como un motor interno: da dirección, significado y razón al trabajo. Cuando alguien siente que lo que hace importa, trabaja con mayor constancia, creatividad y compromiso.',
+					img: 'https://picsum.photos/seed/proposito-personal/900/420', alt: 'Propósito personal y rendimiento' },
+				{ n: 6, q: '¿De qué manera la autonomía fortalece el compromiso de un colaborador?',
+					a: 'La autonomía permite tomar decisiones, asumir responsabilidades y sentir control sobre el trabajo. Esto genera confianza y satisfacción, aumentando el compromiso y la motivación, porque la persona siente que es protagonista de sus resultados.',
+					img: 'https://picsum.photos/seed/autonomia-compromiso/900/420', alt: 'Autonomía y compromiso' },
+			]},
+
+			{ section: 'C. Motivación en el Entorno Grupal', items: [
+				{ n: 7, q: '¿Cómo contribuye la comunicación constante a la motivación grupal?',
+					a: 'La comunicación constante mantiene a todos informados, evita malentendidos y fortalece la coordinación. Además, permite expresar ideas, escuchar necesidades y resolver problemas, lo que incrementa la confianza y la motivación colectiva.',
+					img: 'https://picsum.photos/seed/comunicacion-constante/900/420', alt: 'Comunicación constante en equipos' },
+				{ n: 8, q: '¿Por qué el reconocimiento colectivo fortalece la cohesión dentro de un equipo?',
+					a: 'Porque cuando los logros del grupo son celebrados, todos sienten que sus esfuerzos son valorados. Esto refuerza la unión, la identidad grupal y la voluntad de seguir trabajando juntos para alcanzar metas comunes.',
+					img: 'https://picsum.photos/seed/reconocimiento-colectivo/900/420', alt: 'Reconocimiento colectivo y cohesión' },
+			]},
+
+			{ section: 'D. Rol del Líder y Estrategias Motivacionales', items: [
+				{ n: 9, q: '¿Qué características del liderazgo permiten aumentar la motivación del equipo hasta en un 70% según Gallup?',
+					a: 'Las características clave son: Comunicación clara y frecuente; Empatía y capacidad de escuchar; Generar confianza y seguridad psicológica; Reconocer el esfuerzo y ofrecer retroalimentación positiva; Inspirar con visión y ejemplo. Estas habilidades aumentan significativamente la motivación, el compromiso y el rendimiento del equipo.',
+					img: 'https://picsum.photos/seed/liderazgo-motivacion/900/420', alt: 'Características de liderazgo que aumentan motivación' },
+				{ n: 10, q: '¿Qué estrategias aplicaron los líderes durante la pandemia para mantener motivados a los equipos a distancia?',
+					a: 'Los líderes utilizaron estrategias como: Reuniones virtuales constantes para mantener la conexión; Reconocimiento y apoyo emocional ante la situación difícil; Flexibilidad horaria y comprensión del contexto personal; Objetivos claros y seguimiento sin presionar; Actividades virtuales de integración y bienestar. Estas prácticas permitieron sostener la motivación y cohesión incluso sin contacto presencial.',
+					img: 'https://picsum.photos/seed/estrategias-remotas/900/420', alt: 'Estrategias de motivación en trabajo remoto' },
+			]}
+		];
+
+		const questionList = document.getElementById('questionList');
+		const tocNav = document.getElementById('tocNav');
+		const search = document.getElementById('search');
+		const resultCounter = document.getElementById('resultCounter');
+		const emptyMsg = document.getElementById('emptyMsg');
+		const themeToggle = document.getElementById('themeToggle');
+		const btnExpandAll = document.getElementById('btnExpandAll');
+		const btnCollapseAll = document.getElementById('btnCollapseAll');
+		const btnCompact = document.getElementById('btnCompact');
+		const btnCopyAll = document.getElementById('btnCopyAll');
+		const btnScrollTop = document.getElementById('btnScrollTop');
+		const btnPrint = document.getElementById('btnPrint');
+		const floatingTop = document.getElementById('floatingTop');
+
+		// Theme persistence
 		document.getElementById('year').textContent = new Date().getFullYear();
 		(function(){
 			const KEY = 'ui_theme';
-			const btn = document.getElementById('themeToggle');
-			try { const saved = localStorage.getItem(KEY); if (saved === 'dark') { document.body.classList.add('theme-dark'); btn?.setAttribute('aria-pressed','true'); } } catch {}
-			btn?.addEventListener('click', () => { const on = document.body.classList.toggle('theme-dark'); btn.setAttribute('aria-pressed', String(on)); try { localStorage.setItem(KEY, on ? 'dark' : 'light'); } catch {} });
+			try { const saved = localStorage.getItem(KEY); if (saved === 'dark') { document.body.classList.add('theme-dark'); themeToggle?.setAttribute('aria-pressed','true'); } } catch {}
+			themeToggle?.addEventListener('click', () => { const on = document.body.classList.toggle('theme-dark'); themeToggle.setAttribute('aria-pressed', String(on)); try { localStorage.setItem(KEY, on ? 'dark' : 'light'); } catch {} });
 		})();
-		(() => {
-			const DATA = [
-				{q:'Explica por qué el trabajo en equipo se considera la “columna vertebral” de las organizaciones modernas.',a:'Porque permite integrar habilidades, conocimientos y perspectivas diversas para alcanzar objetivos complejos. El trabajo en equipo sostiene los procesos, mejora la eficiencia, facilita la innovación y permite que las tareas se realicen de manera más rápida y efectiva, convirtiéndose en la base del funcionamiento organizacional moderno.', img:'https://picsum.photos/seed/columna-vertebral/900/420', alt:'Trabajo en equipo como columna vertebral'},
-				{q:'Menciona tres ventajas principales del trabajo en equipo para las organizaciones.',a:'Mayor productividad: se alcanzan metas más rápido gracias a la colaboración.\n\nInnovación constante: la diversidad de ideas genera soluciones creativas.\n\nMejor clima laboral: aumenta la motivación y la satisfacción del personal.', img:'https://picsum.photos/seed/ventajas-equipo/900/420', alt:'Ventajas del trabajo en equipo'},
-				{q:'Describe dos desafíos comunes que pueden afectar la cohesión y el rendimiento de un equipo de trabajo.',a:'Falta de comunicación clara: genera malentendidos y disminuye la coordinación.\n\nConflictos interpersonales no gestionados: afectan la confianza, la motivación y la productividad del equipo.', img:'https://picsum.photos/seed/desafios-equipo/900/420', alt:'Desafíos de cohesión y rendimiento'},
-				{q:'Según el documento, ¿cuáles son las características esenciales de un buen líder de equipo?',a:'Capacidad de comunicación clara y constante.\n\nEmpatía y capacidad de escucha activa.\n\nHabilidad para motivar y guiar.\n\nCapacidad para gestionar conflictos.\n\nTomar decisiones responsables y dar dirección al equipo.', img:'https://picsum.photos/seed/lider-equipo/900/420', alt:'Características de un buen líder'},
-				{q:'Explica cómo la delegación efectiva contribuye al desarrollo profesional y a la autonomía del equipo.',a:'La delegación efectiva asigna tareas según fortalezas y potencial de cada miembro. Esto permite que las personas desarrollen nuevas habilidades, ganen confianza y asuman mayor responsabilidad. Además, aumenta la autonomía del equipo porque cada integrante puede tomar decisiones y aportar soluciones sin depender constantemente del líder.', img:'https://picsum.photos/seed/delegacion-efectiva/900/420', alt:'Delegación efectiva y desarrollo'},
-				{q:'Diferencia brevemente entre los estilos de liderazgo participativo, transformacional y situacional.',a:'Participativo: involucra a los miembros en la toma de decisiones.\n\nTransformacional: inspira, motiva y promueve cambios positivos en el equipo.\n\nSituacional: adapta el estilo de liderazgo según la madurez y necesidades del equipo.', img:'https://picsum.photos/seed/estilos-liderazgo/900/420', alt:'Estilos de liderazgo'},
-				{q:'¿Qué evidencias cuantitativas se mencionan sobre el impacto del liderazgo efectivo en productividad, rotación e innovación?',a:'El liderazgo efectivo puede incrementar la productividad en niveles significativos, reducir la rotación de personal y aumentar la generación de ideas innovadoras. Estos resultados muestran que el liderazgo fuerte tiene un impacto medible y favorable en los indicadores clave de desempeño organizacional.', img:'https://picsum.photos/seed/impacto-liderazgo/900/420', alt:'Impacto cuantitativo del liderazgo'},
-				{q:'Analiza cómo la empatía y la gestión de conflictos influyen en la cohesión del equipo y en la satisfacción laboral.',a:'La empatía permite comprender las emociones y necesidades de los demás, reduciendo tensiones y mejorando la confianza. La gestión adecuada de conflictos evita que los problemas crezcan y dañen las relaciones. Juntas, ambas habilidades fortalecen la cohesión, crean un ambiente saludable y aumentan la satisfacción laboral.', img:'https://picsum.photos/seed/empatia-conflictos/900/420', alt:'Empatía y gestión de conflictos'},
-				{q:'¿De qué manera el trabajo en equipo con liderazgo adecuado puede considerarse una inversión estratégica para las organizaciones?',a:'Porque genera beneficios sostenibles: equipos más comprometidos, menos rotación, mayor innovación, mejor calidad en los resultados y un clima laboral positivo. Todo esto reduce costos y aumenta la competitividad, convirtiendo el liderazgo efectivo en una inversión que impacta directamente en el éxito a largo plazo.', img:'https://picsum.photos/seed/inversion-estrategica/900/420', alt:'Trabajo en equipo como inversión estratégica'},
-				{q:'El documento afirma que “el liderazgo efectivo transforma grupos en equipos cohesivos”. Explica esta afirmación con un ejemplo o caso hipotético.',a:'Un líder que comunica claramente los objetivos, escucha a su equipo y gestiona conflictos puede convertir a un grupo desorganizado en un equipo unido.\nEjemplo: En una empresa, un grupo de empleados trabajaba de forma individual, sin coordinación. Un nuevo líder estableció roles, promovió reuniones de comunicación y motivó a cada miembro. En pocas semanas, el grupo comenzó a trabajar colaborativamente, compartir ideas y obtener mejores resultados. Ese liderazgo transformó un simple conjunto de personas en un equipo cohesionado.', img:'https://picsum.photos/seed/equipo-cohesivo/900/420', alt:'Liderazgo efectivo transforma equipos'}
-			];
-			const questionList = document.getElementById('questionList');
-			const tocNav = document.getElementById('tocNav');
-			const search = document.getElementById('search');
-			const resultCounter = document.getElementById('resultCounter');
-			const emptyMsg = document.getElementById('emptyMsg');
-			const LS_EXPAND = 'wk10_expandAll';
-			let expandAll = false;
-			try { expandAll = localStorage.getItem(LS_EXPAND) === '1'; } catch {}
-			function renderQuestions(data) {
-				questionList.innerHTML = '';
-				tocNav.innerHTML = '';
-				if (!data.length) { emptyMsg.style.display = 'block'; resultCounter.textContent = '0/10'; return; }
-				emptyMsg.style.display = 'none';
-				resultCounter.textContent = data.length + '/10';
-				data.forEach((item, i) => {
-					const qItem = document.createElement('div');
-					qItem.className = 'q-item';
-					if (expandAll) qItem.classList.add('open');
-					const ariaExp = expandAll ? 'true' : 'false';
-					const hiddenAttr = expandAll ? '' : 'hidden';
-					const alignClass = (i % 2 === 0) ? 'media-right' : 'media-left';
-					const mediaFigure = item.img ? `<figure class='answer-media ${alignClass}'><img src='${item.img}' alt='${item.alt || ('Ilustración pregunta '+(i+1))}' loading='lazy' decoding='async' onerror="this.closest('figure')?.remove()"></figure>` : '';
-					qItem.innerHTML = `
-						<button class="q-header" type="button" aria-expanded="${ariaExp}" aria-controls="ans${i}">
-							<span class="num-badge">${i+1}</span>
-							<h3>${item.q}</h3>
-							<span class="toggle-icon">▾</span>
-						</button>
-						<div class="answer" id="ans${i}" ${hiddenAttr}>
-							${mediaFigure}
-							<div class="answer-text">${item.a.replace(/\n/g,'<br>')}</div>
-						</div>
-					`;
-					questionList.appendChild(qItem);
-					const tocLink = document.createElement('a');
-					tocLink.className = 'toc-link';
-					tocLink.href = '#ans' + i;
-					tocLink.innerHTML = `<span class="num">${i+1}</span> ${item.q.slice(0,40)}${item.q.length>40?'...':''}`;
-					tocLink.onclick = e => { e.preventDefault(); document.getElementById('ans' + i).scrollIntoView({ behavior: 'smooth', block: 'center' }); };
-					tocNav.appendChild(tocLink);
-				});
-				questionList.querySelectorAll('.q-header').forEach(btn => {
-					btn.onclick = () => {
-						const item = btn.parentElement;
-						const ans = item.querySelector('.answer');
-						const open = item.classList.contains('open');
-						item.classList.toggle('open', !open);
-						btn.setAttribute('aria-expanded', String(!open));
-						ans.hidden = open;
-					};
-				});
-			}
-			renderQuestions(DATA);
-			search.oninput = () => {
-				const val = search.value.trim().toLowerCase();
-				if (!val) { renderQuestions(DATA); return; }
-				const filtered = DATA.filter(d => d.q.toLowerCase().includes(val) || d.a.toLowerCase().includes(val));
-				renderQuestions(filtered);
-			};
-			const btnExpandAll = document.getElementById('btnExpandAll');
-			const btnCollapseAll = document.getElementById('btnCollapseAll');
-			btnExpandAll.onclick = () => {
-				questionList.querySelectorAll('.q-item').forEach(item => {
-					item.classList.add('open');
-					item.querySelector('.q-header').setAttribute('aria-expanded', 'true');
-					item.querySelector('.answer').hidden = false;
-				});
-				expandAll = true; try { localStorage.setItem(LS_EXPAND, '1'); } catch {}
-			};
-			btnCollapseAll.onclick = () => {
-				questionList.querySelectorAll('.q-item').forEach(item => {
-					item.classList.remove('open');
-					item.querySelector('.q-header').setAttribute('aria-expanded', 'false');
-					item.querySelector('.answer').hidden = true;
-				});
-				expandAll = false; try { localStorage.setItem(LS_EXPAND, '0'); } catch {}
-			};
-			const btnCompact = document.getElementById('btnCompact');
-			btnCompact.onclick = () => { document.body.classList.toggle('density-compact'); };
-			const btnCopyAll = document.getElementById('btnCopyAll');
-			btnCopyAll.onclick = () => {
-				const text = DATA.map((d,i)=>`${i+1}. ${d.q}\n${d.a}`).join('\n\n');
-				navigator.clipboard.writeText(text);
-			};
-			const btnScrollTop = document.getElementById('btnScrollTop');
-			btnScrollTop.onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
-			const btnPrint = document.getElementById('btnPrint');
-			btnPrint.onclick = () => { window.print(); };
-			const floatingTop = document.getElementById('floatingTop');
-			window.addEventListener('scroll', () => { floatingTop.classList.toggle('visible', window.scrollY > 300); });
-			floatingTop.onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+
+		// Render TOC and questions
+		const FLAT = (() => {
+			const arr = [];
+			DATA.forEach(g => g.items.forEach(it => arr.push({ q: it.q, a: it.a, img: it.img, alt: it.alt })));
+			return arr;
 		})();
+
+		function renderQuestions(data) {
+			questionList.innerHTML = '';
+			tocNav.innerHTML = '';
+			if (!data.length) { emptyMsg.style.display = 'block'; resultCounter.textContent = '0/10'; return; }
+			emptyMsg.style.display = 'none';
+			resultCounter.textContent = data.length + '/10';
+			data.forEach((item, i) => {
+				const qItem = document.createElement('div');
+				qItem.className = 'q-item';
+				const alignClass = (i % 2 === 0) ? 'media-right' : 'media-left';
+				const mediaFigure = item.img ? `<figure class='answer-media ${alignClass}'><img src='${item.img}' alt='${item.alt || ('Ilustración pregunta '+(i+1))}' loading='lazy' decoding='async' onerror="this.closest('figure')?.remove()"></figure>` : '';
+				qItem.innerHTML = `
+					<button class="q-header" type="button" aria-expanded="false" aria-controls="ans${i}">
+						<span class="num-badge">${i+1}</span>
+						<h3>${item.q}</h3>
+						<span class="toggle-icon">▾</span>
+					</button>
+					<div class="answer" id="ans${i}" hidden>
+						${mediaFigure}
+						<div class="answer-text">${item.a}</div>
+					</div>
+				`;
+				questionList.appendChild(qItem);
+				const tocLink = document.createElement('a');
+				tocLink.className = 'toc-link';
+				tocLink.href = '#ans' + i;
+				tocLink.innerHTML = `<span class="num">${i+1}</span> ${item.q.slice(0,40)}${item.q.length>40?'...':''}`;
+				tocLink.onclick = e => { e.preventDefault(); document.getElementById('ans' + i).scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+				tocNav.appendChild(tocLink);
+			});
+			questionList.querySelectorAll('.q-header').forEach(btn => {
+				btn.onclick = () => {
+					const item = btn.parentElement;
+					const ans = item.querySelector('.answer');
+					const open = item.classList.contains('open');
+					item.classList.toggle('open', !open);
+					btn.setAttribute('aria-expanded', String(!open));
+					ans.hidden = open;
+				};
+			});
+		}
+		renderQuestions(FLAT);
+
+		// Search filter
+		search.oninput = () => {
+			const val = search.value.trim().toLowerCase();
+			if (!val) { renderQuestions(FLAT); return; }
+			const filtered = FLAT.filter(d => d.q.toLowerCase().includes(val) || d.a.toLowerCase().includes(val));
+			renderQuestions(filtered);
+		};
+
+		// Expand/Collapse
+		btnExpandAll.onclick = () => {
+			questionList.querySelectorAll('.q-item').forEach(item => {
+				item.classList.add('open');
+				item.querySelector('.q-header').setAttribute('aria-expanded', 'true');
+				item.querySelector('.answer').hidden = false;
+			});
+		};
+		btnCollapseAll.onclick = () => {
+			questionList.querySelectorAll('.q-item').forEach(item => {
+				item.classList.remove('open');
+				item.querySelector('.q-header').setAttribute('aria-expanded', 'false');
+				item.querySelector('.answer').hidden = true;
+			});
+		};
+
+		// Copy all answers
+		btnCompact.onclick = () => { document.body.classList.toggle('density-compact'); };
+		btnCopyAll.onclick = () => {
+			const text = FLAT.map((d,i)=>`${i+1}. ${d.q}\n${d.a}`).join('\n\n');
+			navigator.clipboard.writeText(text);
+		};
+
+		// Print
+		btnScrollTop.onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+		btnPrint.onclick = () => { window.print(); };
+		window.addEventListener('scroll', () => { floatingTop.classList.toggle('visible', window.scrollY > 300); });
+		floatingTop.onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
 	</script>
 </body>
 </html>
