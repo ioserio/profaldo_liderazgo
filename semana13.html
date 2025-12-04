@@ -3,34 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Semana 11 | RIKFLEX</title>
+  <title>Semana 13 | RIKFLEX</title>
   <style>
     :root {
-      --bg: #eef3f8;
-      --bg2: #f8fafc;
-      --panel: #fff;
-      --ink: #1e293b;
-      --ink2: #475569;
-      --border: #d8e2ec;
-      --accent: #6366f1;
-      --accent2: #38bdf8;
-      --accent3: #34d399;
-      --radius: 18px;
+      --bg: #eef3f8; --bg2: #f8fafc; --panel: #fff; --ink: #1e293b; --ink2: #475569; --border: #d8e2ec; --accent: #6366f1; --accent2: #38bdf8; --accent3: #34d399; --radius: 18px;
       --grad-accent: linear-gradient(120deg, var(--accent), var(--accent2), var(--accent3));
-      --shadow-sm: 0 2px 4px rgba(15,23,42,.04);
-      --shadow-md: 0 8px 28px -4px rgba(15,23,42,.15);
-      --shadow-xl: 0 18px 40px -10px rgba(15,23,42,.25);
+      --shadow-sm: 0 2px 4px rgba(15,23,42,.04); --shadow-md: 0 8px 28px -4px rgba(15,23,42,.15); --shadow-xl: 0 18px 40px -10px rgba(15,23,42,.25);
     }
     body.theme-dark {
-      --bg: #0f172a;
-      --bg2: #142033;
-      --panel: #1e293b;
-      --ink: #e2e8f0;
-      --ink2: #94a3b8;
-      --border: #334155;
-      --shadow-sm: 0 2px 4px rgba(0,0,0,.4);
-      --shadow-md: 0 8px 28px -4px rgba(0,0,0,.55);
-      --shadow-xl: 0 18px 40px -10px rgba(0,0,0,.6);
+      --bg: #0f172a; --bg2: #142033; --panel: #1e293b; --ink: #e2e8f0; --ink2: #94a3b8; --border: #334155;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,.4); --shadow-md: 0 8px 28px -4px rgba(0,0,0,.55); --shadow-xl: 0 18px 40px -10px rgba(0,0,0,.6);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -39,63 +21,27 @@
         radial-gradient(900px 700px at 95% 15%, rgba(56,189,248,.15), transparent 65%),
         radial-gradient(900px 700px at 50% 95%, rgba(52,211,153,.14), transparent 70%),
         linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      color: var(--ink);
-      background-attachment: fixed;
-      animation: fadeIn .6s ease;
+      min-height: 100vh; display: flex; flex-direction: column; color: var(--ink); background-attachment: fixed; animation: fadeIn .6s ease;
     }
     @keyframes fadeIn { from { opacity: 0; filter: blur(4px) } to { opacity: 1; filter: none } }
-    header {
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
-      backdrop-filter: blur(8px) saturate(130%);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 80;
-    }
-    body.theme-dark header {
-      background: linear-gradient(180deg, rgba(30,41,59,.85), rgba(30,41,59,.55));
-    }
+    header { padding: 14px 20px; display: flex; align-items: center; gap: 16px; background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65)); backdrop-filter: blur(8px) saturate(130%); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 80; }
+    body.theme-dark header { background: linear-gradient(180deg, rgba(30,41,59,.85), rgba(30,41,59,.55)); }
     .header-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-    a.home {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--border);
-      background: var(--panel); text-decoration: none; font-size: 20px; transition: .25s; color: var(--ink);
-      position: relative; overflow: hidden;
-    }
+    a.home { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 12px; border: 1px solid var(--border); background: var(--panel); text-decoration: none; font-size: 20px; transition: .25s; color: var(--ink); position: relative; overflow: hidden; }
     a.home:before { content: ""; position: absolute; inset: 0; background: var(--grad-accent); opacity: 0; transition: .4s; }
     a.home:hover:before { opacity: .15; }
     a.home:hover { box-shadow: 0 4px 14px rgba(15,23,42,.18), 0 0 0 4px rgba(99,102,241,.15); transform: translateY(-2px); }
-    h1 {
-      font-size: 1.55rem; margin: 0; font-weight: 800; letter-spacing: .5px;
-      background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-  main { flex: 1; width: 100%; max-width: 1400px; margin: 28px auto 70px; display: grid; grid-template-columns: 260px 1fr; gap: 34px; padding: 0 32px; }
+    h1 { font-size: 1.55rem; margin: 0; font-weight: 800; letter-spacing: .5px; background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    main { flex: 1; width: 100%; max-width: 1400px; margin: 28px auto 70px; display: grid; grid-template-columns: 260px 1fr; gap: 34px; padding: 0 32px; }
     @media (max-width: 1100px) { main { grid-template-columns: 1fr; padding: 0 20px; } }
     .layout-col { min-width: 0; }
-    aside.toc {
-      position: sticky; top: 86px; align-self: start; max-height: calc(100vh - 120px); overflow: auto;
-      padding: 18px 18px 26px; border: 1px solid var(--border); border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65));
-      backdrop-filter: blur(8px) saturate(120%); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 14px;
-    }
-  body.theme-dark aside.toc { background: linear-gradient(180deg, rgba(30,41,59,.85), rgba(30,41,59,.55)); }
-  body.theme-dark aside.toc { scrollbar-width: thin; scrollbar-color: rgba(99,102,241,.55) rgba(30,41,59,.6); }
-  body.theme-dark aside.toc::-webkit-scrollbar { width: 10px; }
-  body.theme-dark aside.toc::-webkit-scrollbar-track { background: rgba(30,41,59,.6); border-radius: 10px; }
-  body.theme-dark aside.toc::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(99,102,241,.7), rgba(56,189,248,.7)); border-radius: 10px; border: 2px solid rgba(30,41,59,.6); }
-  body.theme-dark aside.toc::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, rgba(99,102,241,.85), rgba(56,189,248,.85)); }
+    aside.toc { position: sticky; top: 86px; align-self: start; max-height: calc(100vh - 120px); overflow: auto; padding: 18px 18px 26px; border: 1px solid var(--border); border-radius: 16px; background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.65)); backdrop-filter: blur(8px) saturate(120%); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 14px; }
+    body.theme-dark aside.toc { background: linear-gradient(180deg, rgba(30,41,59,.85), rgba(30,41,59,.55)); }
+    body.theme-dark aside.toc { scrollbar-width: thin; scrollbar-color: rgba(99,102,241,.55) rgba(30,41,59,.6); }
     aside.toc h2 { margin: 0; font-size: .9rem; letter-spacing: .8px; text-transform: uppercase; font-weight: 700; opacity: .75; }
     aside.toc nav { display: flex; flex-direction: column; gap: 6px; }
     .toc-link { display: flex; gap: 8px; align-items: center; padding: 8px 10px 8px 12px; font-size: .8rem; line-height: 1.2; border: 1px solid transparent; border-radius: 10px; color: var(--ink2); text-decoration: none; position: relative; transition: .2s; }
     .toc-link span.num { font-variant-numeric: tabular-nums; opacity: .6; min-width: 1.6em; text-align: right; font-size: .7rem; font-weight: 600; }
-    .toc-link.active { background: linear-gradient(180deg, rgba(99,102,241,.14), rgba(56,189,248,.14)); color: var(--ink); border-color: rgba(99,102,241,.35); }
     .toc-link:hover { background: rgba(99,102,241,.12); color: var(--ink); }
     .toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; align-items: center; }
     .chip { font-size: .62rem; letter-spacing: .8px; text-transform: uppercase; font-weight: 700; padding: 7px 14px; border-radius: 20px; background: #e2e8f0; color: #334155; display: inline-flex; align-items: center; gap: 6px; }
@@ -109,7 +55,7 @@
     .btn:hover { border-color: var(--accent2); box-shadow: 0 4px 14px rgba(15,23,42,.18); }
     .btn:active { transform: translateY(1px); }
     .btn-primary { background: var(--grad-accent); color: #fff; border: none; }
-    .btn-primary:hover { box-shadow: 0 6px 18px rgba(56,189,248,.35); } body.theme-dark .btn-primary { color: #fff; }
+    .btn-primary:hover { box-shadow: 0 6px 18px rgba(56,189,248,.35); }
     .counter { font-size: .7rem; font-weight: 600; padding: 6px 10px; border-radius: 10px; background: linear-gradient(120deg, #38bdf8, #6366f1); color: #fff; box-shadow: var(--shadow-sm); }
     .questions { display: flex; flex-direction: column; gap: 16px; }
     .q-item { border: 1px solid var(--border); background: var(--panel); border-radius: 20px; padding: 0; box-shadow: var(--shadow-sm); overflow: hidden; position: relative; transition: box-shadow .3s, border-color .3s; }
@@ -120,24 +66,18 @@
     .q-header h3 { margin: 2px 0 0; font-size: 1rem; font-weight: 600; line-height: 1.25; letter-spacing: .3px; }
     .toggle-icon { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 12px; transition: transform .4s; background: radial-gradient(circle at 50% 45%, rgba(99,102,241,.35), rgba(99,102,241,0)); }
     .q-item.open .toggle-icon { transform: rotate(180deg); }
-    .answer { padding: 0 54px 22px 68px; font-size: .92rem; line-height: 1.55; color: var(--ink2); display: none; animation: fadeSlide .35s ease; }
+    .answer { padding: 0 54px 22px 68px; font-size: .92rem; line-height: 1.55; color: var(--ink2); display: none; }
     .q-item.open .answer { display: block; }
-    .answer::after { content: ""; display: table; clear: both; }
     .answer-media { margin-top: 12px; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-sm); }
     .answer-media img { width: 100%; height: auto; display: block; }
     .answer-media.media-right { float: right; margin-left: 16px; margin-bottom: 10px; width: min(46%, 360px); }
     .answer-media.media-left  { float: left;  margin-right: 16px; margin-bottom: 10px; width: min(46%, 360px); }
-    @media (max-width: 820px) {
-      .answer-media.media-right,
-      .answer-media.media-left { float: none; width: 100%; margin: 10px 0 14px; }
-    }
-    @keyframes fadeSlide { from { opacity: 0; transform: translateY(-4px) } to { opacity: 1; transform: translateY(0) } }
-    mark { background: linear-gradient(90deg, #fde68a, #fcd34d); color: #1e293b; padding: 0 2px; border-radius: 3px; } body.theme-dark mark { background: linear-gradient(90deg, #fbbf24, #f59e0b); color: #0f172a; }
+    @media (max-width: 820px) { .answer-media.media-right, .answer-media.media-left { float: none; width: 100%; margin: 10px 0 14px; } }
     .empty { border: 2px dashed var(--border); padding: 40px 30px; border-radius: 20px; text-align: center; font-size: .9rem; color: var(--ink2); display: none; }
     .footer-actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
     footer { margin-top: auto; text-align: center; padding: 30px 12px 40px; font-size: .7rem; color: var(--ink2); }
     .floating-top { position: fixed; right: 18px; bottom: 18px; width: 46px; height: 46px; border-radius: 14px; background: var(--grad-accent); color: #fff; font-weight: 700; font-size: 1rem; display: grid; place-items: center; border: none; cursor: pointer; box-shadow: var(--shadow-md); z-index: 90; opacity: 0; pointer-events: none; transition: .3s; }
-    .floating-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .floating-top.visible { opacity: 1; pointer-events: auto; }
     .density-compact .answer { font-size: .84rem; line-height: 1.45; }
     .density-compact .q-header { padding: 14px 16px; }
     .density-compact .answer { padding: 0 40px 18px 56px; }
@@ -145,14 +85,14 @@
     @media (max-width: 520px) { h1 { font-size: 1.25rem; } .q-header h3 { font-size: .95rem; } .answer { padding: 0 24px 18px 60px; } .num-badge { width: 30px; height: 30px; border-radius: 10px; font-size: .7rem; } .toggle-icon { width: 32px; height: 32px; } .btn { padding: 9px 12px; font-size: .68rem; } .btn-primary { padding: 9px 14px; } }
     @media print { header, .toolbar, .floating-top, aside.toc, .footer-actions, .actions { display: none !important; } body { background: #fff; } main { grid-template-columns: 1fr; padding: 0 10px; margin: 0; } .q-item { border: 1px solid #555; box-shadow: none; } .answer { display: block !important; } footer { padding: 10px 0 0; font-size: .6rem; } }
   </style>
-  
 </head>
 <body>
   <header>
-    <h1>Semana 11</h1><div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:800;letter-spacing:.5px;text-align:center;pointer-events:none;max-width:76%;line-height:1.15;font-size:clamp(1.1rem,3.5vw,1.85rem);background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;color:transparent;">DINÁMICAS DE GRUPOS Y PARTICIPACIÓN EN EQUIPOS DE TRABAJO</div>
+    <h1>Semana 13</h1>
+    <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-weight:800;letter-spacing:.5px;text-align:center;pointer-events:none;max-width:76%;line-height:1.15;font-size:clamp(1.1rem,3.5vw,1.85rem);background:var(--grad-accent);-webkit-background-clip:text;background-clip:text;color:transparent;">MEJORA CONTINUA KAIZEN</div>
     <div class="header-actions">
       <a href="index.html" class="home" aria-label="Volver al inicio">🏠</a>
-      <button id="themeToggle" class="btn btn-ghost" aria-pressed="false" title="Cambiar tema">🌗 <span style="opacity:.8;font-weight:500;">Tema</span></button>
+      <button id="themeToggle" class="btn" aria-pressed="false" title="Cambiar tema">🌗 <span style="opacity:.8;font-weight:500;">Tema</span></button>
     </div>
   </header>
   <main id="app">
@@ -162,7 +102,7 @@
     </aside>
     <div class="layout-col">
       <div class="toolbar" role="region" aria-label="Herramientas del cuestionario">
-        <span class="chip" id="modeChip">Cuestionario</span>
+        <span class="chip" id="modeChip">Cuestionario Kaizen</span>
         <div class="search-box"><input id="search" type="search" placeholder="Buscar pregunta o respuesta..." aria-label="Buscar" autocomplete="off"/><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
         <div class="actions" aria-label="Acciones">
           <button class="btn" id="btnExpandAll" type="button">Expandir todo</button>
@@ -172,8 +112,7 @@
           <span class="counter" id="resultCounter" aria-live="polite">10/10</span>
         </div>
       </div>
-      <section class="questions" id="questionList" aria-label="Listado de preguntas" role="list">
-        </section>
+      <section class="questions" id="questionList" aria-label="Listado de preguntas" role="list"></section>
       <div class="empty" id="emptyMsg" role="status">Sin coincidencias. Ajusta tu búsqueda.</div>
       <div class="footer-actions">
         <button class="btn" id="btnScrollTop" type="button">Subir</button>
@@ -182,60 +121,34 @@
     </div>
   </main>
   <button class="floating-top" id="floatingTop" aria-label="Volver arriba">↑</button>
-  <footer>
-    <div class="footer-social">
-      <a href="https://facebook.com" target="_blank" aria-label="Facebook">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"/>
-      </a>
-      <a href="https://twitter.com" target="_blank" aria-label="Twitter">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"/>
-      </a>
-      <a href="https://instagram.com" target="_blank" aria-label="Instagram">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"/>
-      </a>
-    </div>
-  <div class="footer-quote">La participación y las dinámicas adecuadas fortalecen la cohesión y el rendimiento colectivo.</div>
-    <div class="footer-bottom">&copy; <span id="year"></span> Derechos reservados</div>
-  </footer>
+  <footer>&copy; <span id="year"></span> RIKFLEX</footer>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     (function(){
       const KEY = 'ui_theme';
       const btn = document.getElementById('themeToggle');
-      try {
-        const saved = localStorage.getItem(KEY);
-        if (saved === 'dark') {
-          document.body.classList.add('theme-dark');
-          btn?.setAttribute('aria-pressed', 'true');
-        }
-      } catch {}
-      btn?.addEventListener('click', () => {
-        const on = document.body.classList.toggle('theme-dark');
-        btn.setAttribute('aria-pressed', String(on));
-        try { localStorage.setItem(KEY, on ? 'dark' : 'light'); } catch {}
-      });
+      try { const saved = localStorage.getItem(KEY); if (saved === 'dark') { document.body.classList.add('theme-dark'); btn?.setAttribute('aria-pressed','true'); } } catch {}
+      btn?.addEventListener('click', () => { const on = document.body.classList.toggle('theme-dark'); btn.setAttribute('aria-pressed', String(on)); try { localStorage.setItem(KEY, on ? 'dark' : 'light'); } catch {} });
     })();
     (() => {
-  const DATA = [
-    {q:'¿Qué se entiende por dinámicas de grupo en el contexto de equipos de trabajo?',a:'Son actividades, técnicas o ejercicios planificados que se aplican dentro de un equipo para mejorar la interacción, comunicación, confianza y colaboración entre sus miembros.', img:'https://picsum.photos/seed/dinamicas-grupo/900/420', alt:'Dinámicas de grupo en equipos'},
-    {q:'¿Por qué son importantes las dinámicas de grupo para el desarrollo de equipos de alto rendimiento?',a:'Porque permiten fortalecer la cohesión, mejorar la comunicación, resolver conflictos, fomentar la confianza y alinear al grupo hacia un objetivo común, elementos esenciales para que un equipo sea realmente productivo y eficiente.', img:'https://picsum.photos/seed/alto-rendimiento/900/420', alt:'Equipos de alto rendimiento'},
-    {q:'¿Qué aspectos busca fortalecer la aplicación de dinámicas dentro de un equipo?',a:'Busca fortalecer:<br><br>• La comunicación efectiva<br>• La integración entre miembros<br>• La confianza y el respeto mutuo<br>• La motivación<br>• La resolución de problemas<br>• La coordinación y trabajo colaborativo', img:'https://picsum.photos/seed/fortalecer-aspectos/900/420', alt:'Aspectos a fortalecer en el equipo'},
-    {q:'¿Cuál es el propósito principal de un Focus Group dentro de un equipo organizacional?',a:'Obtener opiniones, percepciones e ideas de los integrantes para comprender mejor sus necesidades, evaluar propuestas o identificar problemas desde diferentes puntos de vista.', img:'https://picsum.photos/seed/focus-group/900/420', alt:'Propósito de un Focus Group'},
-    {q:'¿Cómo contribuyen los debates estructurados al fortalecimiento del pensamiento crítico en un equipo?',a:'Porque obligan a analizar argumentos, comparar perspectivas, justificar puntos de vista y escuchar activamente, lo cual desarrolla habilidades de análisis, reflexión y toma de decisiones fundamentadas.', img:'https://picsum.photos/seed/debate-estructurado/900/420', alt:'Debates estructurados y pensamiento crítico'},
-    {q:'¿Qué función cumplen las dinámicas para “romper el hielo” al inicio de un trabajo colaborativo?',a:'Ayudan a reducir la tensión inicial, promover la confianza, generar un ambiente más relajado y facilitar que los integrantes se conozcan, permitiendo una comunicación más fluida desde el inicio.', img:'https://picsum.photos/seed/romper-hielo/900/420', alt:'Dinámicas para romper el hielo'},
-    {q:'¿Qué beneficios aportan las dinámicas de integración en la construcción de cohesión dentro del equipo?',a:'Incrementan la confianza mutua<br>Refuerzan el sentido de pertenencia<br>Mejoran la comunicación<br>Generan vínculos interpersonales<br>Fomentan la colaboración y el apoyo entre los miembros', img:'https://picsum.photos/seed/integracion-cohesion/900/420', alt:'Integración y cohesión grupal'},
-    {q:'¿Por qué la participación activa de todos los integrantes es clave para el rendimiento colectivo?',a:'Porque asegura que se aprovechen todas las habilidades, conocimientos e ideas disponibles, evitando cargas desiguales y generando mayor compromiso y responsabilidad compartida.', img:'https://picsum.photos/seed/participacion-activa/900/420', alt:'Participación activa en equipos'},
-    {q:'¿Qué condiciones debe asegurar un líder o facilitador para promover la participación equitativa en el equipo?',a:'Debe asegurar:<br><br>• Un ambiente seguro y respetuoso<br>• Igual oportunidad de expresión<br>• Normas claras de comunicación<br>• Eliminación de barreras o intimidación<br>• Escucha activa y retroalimentación constructiva', img:'https://picsum.photos/seed/participacion-equitativa/900/420', alt:'Condiciones para participación equitativa'},
-    {q:'¿De qué manera la asignación de roles claros influye en la responsabilidad y el compromiso de los miembros?',a:'Porque cada integrante sabe exactamente qué debe hacer, qué se espera de él y cómo contribuye al objetivo general, lo que aumenta su sentido de responsabilidad, compromiso y eficiencia en el cumplimiento de tareas.', img:'https://picsum.photos/seed/roles-claros/900/420', alt:'Influencia de roles claros en responsabilidad'}
-  ];
-      const imageMap = {};
-      DATA.forEach((item) => { imageMap[item.q] = item.img || ''; });
+      const DATA = [
+        {q:'¿Qué significa el término japonés Kaizen y cuál es su propósito principal dentro de una organización?',a:'El término japonés Kaizen significa "mejora continua" o "cambio para mejor".\nSu propósito principal dentro de una organización es lograr mejoras constantes y graduales en los procesos eliminando desperdicios (muda) y elevando calidad, productividad y valor.', img:'https://picsum.photos/seed/kaizen-concept/900/420', alt:'Concepto de Kaizen mejora continua'},
+        {q:'¿Por qué se considera que Kaizen requiere la participación de todos los niveles jerárquicos?',a:'Porque se apoya en pequeñas mejoras frecuentes hechas por quienes viven el proceso diario.\n- Conocimiento directo del Gemba.\n- Mayor aceptación y menos resistencia.\n- Cultura de valor, confianza y responsabilidad compartida.', img:'https://picsum.photos/seed/kaizen-participacion/900/420', alt:'Participación de todos los niveles en Kaizen'},
+        {q:'¿Cómo contribuyen los ciclos PDCA al proceso de mejora continua?',a:'PDCA da estructura iterativa: Plan (definir problema y meta) · Do (probar la mejora) · Check (comparar resultados) · Act (estandarizar o ajustar e iniciar nuevo ciclo).', img:'https://picsum.photos/seed/pdca-cycle/900/420', alt:'Ciclo PDCA de mejora continua'},
+        {q:'¿Por qué el Kaizen se describe como un "estilo de vida empresarial" y no solo una técnica?',a:'Porque es una filosofía cultural sostenida: cuestionar prácticas, buscar oportunidades, mentalidad abierta, respeto mutuo y mejora diaria más allá de herramientas puntuales.', img:'https://picsum.photos/seed/kaizen-cultura/900/420', alt:'Cultura Kaizen en la organización'},
+        {q:'¿Cómo se relaciona el aprendizaje a partir del error con la filosofía Kaizen?',a:'El error se convierte en insumo de mejora mediante Hansei (autocrítica sin culpar). Se privilegia aprender, ajustar y avanzar en ciclos cortos antes que perseguir perfección inmediata.', img:'https://picsum.photos/seed/hansei-error/900/420', alt:'Reflexión Hansei sobre errores'},
+        {q:'¿Por qué los equipos multidisciplinarios son esenciales para implementar mejoras continuas?',a:'Aportan diversidad de perspectivas y competencias que enriquecen el análisis de causa raíz y generan soluciones más robustas y sistémicas.', img:'https://picsum.photos/seed/equipos-multi/900/420', alt:'Equipo multidisciplinario colaborando'},
+        {q:'¿Cómo contribuye la colaboración interdepartamental al éxito de un proceso Kaizen?',a:'Evita silos, integra procesos transversales y alinea objetivos estratégicos, logrando mejoras que optimizan el flujo total y no solo subprocesos locales.', img:'https://picsum.photos/seed/colaboracion-deptos/900/420', alt:'Colaboración entre departamentos'},
+        {q:'¿Cuál es el objetivo principal de la metodología 5S dentro de los entornos de trabajo?',a:'Orden y disciplina visual (Seiri, Seiton, Seiso, Seiketsu, Shitsuke) para reducir desperdicios, facilitar flujo, elevar seguridad y sostener estándares.', img:'https://picsum.photos/seed/5s-metodo/900/420', alt:'Aplicación metodología 5S'},
+        {q:'¿Qué caracteriza a un Evento Kaizen o Kaizen Blitz y qué tipo de problemas busca resolver?',a:'Intervención breve e intensiva en el Gemba (≈1 semana) para atacar desperdicios específicos y lograr mejoras rápidas con equipo focalizado.', img:'https://picsum.photos/seed/kaizen-blitz/900/420', alt:'Evento Kaizen Blitz en planta'},
+        {q:'¿Qué papel desempeña el líder en la cultura Kaizen para garantizar la aplicación efectiva de mejoras continuas?',a:'Actúa como facilitador y ejemplo: comunica propósito, habilita recursos, escucha feedback, remueve obstáculos y refuerza disciplina de mejora.', img:'https://picsum.photos/seed/lider-kaizen/900/420', alt:'Líder facilitador en Kaizen'}
+      ];
       const questionList = document.getElementById('questionList');
       const tocNav = document.getElementById('tocNav');
       const search = document.getElementById('search');
       const resultCounter = document.getElementById('resultCounter');
       const emptyMsg = document.getElementById('emptyMsg');
-      const LS_EXPAND = 'q_expandAll_w11';
+      const LS_EXPAND = 'wk13_expandAll';
       let expandAll = false;
       try { expandAll = localStorage.getItem(LS_EXPAND) === '1'; } catch {}
       function renderQuestions(data) {
@@ -249,10 +162,10 @@
           qItem.className = 'q-item';
           qItem.setAttribute('role', 'listitem');
           if (expandAll) qItem.classList.add('open');
-          const alignClass = (i % 2 === 0) ? 'media-right' : 'media-left';
-          const imgSrc = imageMap[item.q];
           const ariaExp = expandAll ? 'true' : 'false';
           const hiddenAttr = expandAll ? '' : 'hidden';
+          const alignClass = (i % 2 === 0) ? 'media-right' : 'media-left';
+          const mediaFigure = item.img ? `<figure class='answer-media ${alignClass}'><img src='${item.img}' alt='${item.alt || ('Ilustración pregunta '+(i+1))}' loading='lazy' decoding='async' onerror="this.closest('figure')?.remove()"></figure>` : '';
           qItem.innerHTML = `
             <button class="q-header" type="button" aria-expanded="${ariaExp}" aria-controls="ans${i}">
               <span class="num-badge">${i+1}</span>
@@ -260,19 +173,19 @@
               <span class="toggle-icon">▾</span>
             </button>
             <div class="answer" id="ans${i}" ${hiddenAttr}>
-              ${imgSrc ? `<figure class='answer-media ${alignClass}'><img src='${imgSrc}' alt='${item.alt || `Ilustración de la pregunta ${i+1}`} ' loading='lazy' decoding='async' onerror="this.closest('figure')?.remove()"></figure>` : ''}
-              <div class="answer-text">${item.a}</div>
+              ${mediaFigure}
+              <div class="answer-text">${item.a.replace(/\n/g,'<br>')}</div>
             </div>
           `;
           questionList.appendChild(qItem);
           const tocLink = document.createElement('a');
           tocLink.className = 'toc-link';
           tocLink.href = '#ans' + i;
-          tocLink.innerHTML = `<span class="num">${i+1}</span> ${item.q.slice(0,38)}${item.q.length>38?'...':''}`;
+          tocLink.innerHTML = `<span class="num">${i+1}</span> ${item.q.slice(0,40)}${item.q.length>40?'...':''}`;
           tocLink.onclick = e => { e.preventDefault(); document.getElementById('ans' + i).scrollIntoView({ behavior: 'smooth', block: 'center' }); };
           tocNav.appendChild(tocLink);
         });
-        questionList.querySelectorAll('.q-header').forEach((btn, idx) => {
+        questionList.querySelectorAll('.q-header').forEach(btn => {
           btn.onclick = () => {
             const item = btn.parentElement;
             const ans = item.querySelector('.answer');
@@ -298,8 +211,7 @@
           item.querySelector('.q-header').setAttribute('aria-expanded', 'true');
           item.querySelector('.answer').hidden = false;
         });
-        expandAll = true;
-        try { localStorage.setItem(LS_EXPAND, '1'); } catch {}
+        expandAll = true; try { localStorage.setItem(LS_EXPAND, '1'); } catch {}
       };
       btnCollapseAll.onclick = () => {
         questionList.querySelectorAll('.q-item').forEach(item => {
@@ -307,16 +219,13 @@
           item.querySelector('.q-header').setAttribute('aria-expanded', 'false');
           item.querySelector('.answer').hidden = true;
         });
-        expandAll = false;
-        try { localStorage.setItem(LS_EXPAND, '0'); } catch {}
+        expandAll = false; try { localStorage.setItem(LS_EXPAND, '0'); } catch {}
       };
       const btnCompact = document.getElementById('btnCompact');
-      btnCompact.onclick = () => {
-        document.body.classList.toggle('density-compact');
-      };
+      btnCompact.onclick = () => { document.body.classList.toggle('density-compact'); };
       const btnCopyAll = document.getElementById('btnCopyAll');
       btnCopyAll.onclick = () => {
-        const text = DATA.map((d, i) => `${i+1}. ${d.q}\n${d.a.replace(/<br>/g,'\n')}`).join('\n\n');
+        const text = DATA.map((d,i)=>`${i+1}. ${d.q}\n${d.a}`).join('\n\n');
         navigator.clipboard.writeText(text);
       };
       const btnScrollTop = document.getElementById('btnScrollTop');
@@ -324,9 +233,7 @@
       const btnPrint = document.getElementById('btnPrint');
       btnPrint.onclick = () => { window.print(); };
       const floatingTop = document.getElementById('floatingTop');
-      window.addEventListener('scroll', () => {
-        floatingTop.classList.toggle('visible', window.scrollY > 300);
-      });
+      window.addEventListener('scroll', () => { floatingTop.classList.toggle('visible', window.scrollY > 300); });
       floatingTop.onclick = () => { window.scrollTo({ top: 0, behavior: 'smooth' }); };
     })();
   </script>
